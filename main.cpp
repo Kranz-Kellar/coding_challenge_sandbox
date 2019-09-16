@@ -45,7 +45,7 @@ int main() {
 
 		shader->Bind();
 		texture->Bind();
-		shader->
+		shader->SetMat4f("transform", trans);
 		renderer->drawObject();
 		window->SwapBuffers();
 	}

@@ -8,6 +8,7 @@
 
 #include "Window.h"
 #include "Shader.h"
+#include "Texture2D.h"
 #include "ResourceManager.h"
 #include "Renderer.h"
 
@@ -22,7 +23,10 @@ int main() {
 
 	Renderer* renderer = new Renderer();
 
-	Shader* shader = resManager->LoadShader("res/shaders/base_vector_shader.vs", "res/shaders/base_fragment_shader.fs");
+	Shader* shader = resManager->LoadShader("res/shaders/base_vector_shader.vs",
+		"res/shaders/base_fragment_shader.fs");
+
+	Texture2D* texture = resManager->LoadTexture("res/textures/test.png");
 
 #ifdef _DEBUG
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -31,17 +35,20 @@ int main() {
 
 	while (!window->windowShouldClose) {
 		window->Update();
-		shader->Bind();
 
-		GLfloat timeValue = glfwGetTime();
-		GLfloat value = (sin(timeValue) / 2) + 0.5f;
-		shader->SetUniform4f("timeColor", value, 1.0f, 0.5f, 1.0f);
+		shader->Bind();
+		texture->Bind();
 
 		renderer->drawObject();
 		window->SwapBuffers();
 	}
 
 	window->Shutdown();
+	resManager->ReleaseResources();
+
+	delete resManager;
+	delete window;
+	delete renderer;
 
 	return EXIT_SUCCESS;
 }

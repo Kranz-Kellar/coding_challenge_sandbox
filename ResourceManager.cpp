@@ -37,3 +37,32 @@ Shader* ResourceManager::LoadShader(std::string pathToVector, std::string pathTo
 
 	return nullptr;
 }
+
+Texture2D* ResourceManager::LoadTexture(std::string path)
+{
+	int width, height;
+	unsigned char* image = SOIL_load_image(path.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+	if (image != nullptr) {
+		Texture2D* texture = new Texture2D(width, height, image);
+		textures.push_back(texture);
+		SOIL_free_image_data(image);
+		return texture;
+	}
+	else {
+		std::cout << "ERROR::SOIL::load failed" << std::endl;
+	}
+
+	return nullptr;
+}
+
+void ResourceManager::ReleaseResources()
+{
+	for(auto shader : shaders) {
+		delete shader;
+	}
+
+	for (auto texture : textures) {
+		delete texture;
+	}
+
+}

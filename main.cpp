@@ -5,6 +5,9 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Window.h"
 #include "Shader.h"
@@ -32,13 +35,17 @@ int main() {
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 #endif
 	
+	glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+	glm::mat4 trans(1.0f);
+	trans = glm::rotate(trans, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
 
 	while (!window->windowShouldClose) {
 		window->Update();
 
 		shader->Bind();
 		texture->Bind();
-
+		shader->
 		renderer->drawObject();
 		window->SwapBuffers();
 	}

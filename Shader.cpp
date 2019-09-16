@@ -86,3 +86,9 @@ void Shader::SetUniform4f(const char* uniformName, float x, float y, float z, fl
 	GLuint uniformLocation = glGetUniformLocation(this->id, uniformName);
 	glUniform4f(uniformLocation, x, y, z, w);
 }
+
+void Shader::SetMat4f(const char* uniformName, glm::mat4 mat)
+{
+	GLuint uniformLocation = glGetUniformLocation(this->id, uniformName);
+	glUniformMatrix4fv(uniformLocation, glm::value_ptr(mat));
+}

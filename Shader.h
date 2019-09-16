@@ -3,7 +3,6 @@
 #include <GL/glew.h>
 #include <iostream>
 
-
 class Shader
 {
 	enum ShaderType {
@@ -26,7 +25,7 @@ public:
 	void Bind();
 	void SetUniform4f(const char* uniformName, float x, float y, float z, float w);
 	//TODO: setters for all kind of uniforms
-
+	void SetMat4f(const char* uniformName, glm::mat4 mat);
 
 };
 

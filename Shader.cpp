@@ -80,3 +80,9 @@ void Shader::Bind()
 {
 	glUseProgram(this->id);
 }
+
+void Shader::SetUniform4f(const char* uniformName, float x, float y, float z, float w)
+{
+	GLuint uniformLocation = glGetUniformLocation(this->id, uniformName);
+	glUniform4f(uniformLocation, x, y, z, w);
+}

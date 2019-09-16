@@ -12,18 +12,21 @@ class Shader
 		FRAGMENT,
 	};
 
-	GLuint id;
+	
 	GLuint Compile(const char* source, ShaderType type);
 	bool IsCompileSuccess(GLuint shader);
-
+	GLuint id;
 	
 
 public:
 	Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
 	~Shader();
-
+	
 
 	void Bind();
+	void SetUniform4f(const char* uniformName, float x, float y, float z, float w);
+	//TODO: setters for all kind of uniforms
+
 
 };
 

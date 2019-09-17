@@ -7,13 +7,13 @@ class Window
 {
 
 	GLFWwindow* windowPtr;
-	GLint width, height;
 	const char* title;
 
 
 	void Init();
 	
 public:
+	GLint width, height;
 	Window(int width, int height, const char* title);
 	~Window();
 

@@ -34,19 +34,55 @@ int main() {
 #ifdef _DEBUG
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 #endif
+
+
 	
-	glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
-	glm::mat4 trans(1.0f);
-	trans = glm::rotate(trans, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)window->width / (GLfloat)window->height, 0.1f, 100.0f);
+	glm::mat4 view(1.0f);
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -10.0f));
+	glm::vec3 viewPos = glm::vec3(0.0f, 0.0f, 3.0f);
+	glm::vec3 viewTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 viewDirection = glm::normalize(viewPos - viewDirection);
+	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 viewRight = glm::normalize(glm::cross(up, viewDirection));
+	glm::vec3 viewUp = glm::cross(viewDirection, viewRight);
+
+	view = glm::lookAt(viewPos, viewTarget, up);
+
+	glm::vec3 cubePositions[] = {
+	glm::vec3(0.0f,  0.0f,  0.0f),
+	glm::vec3(2.0f,  5.0f, -15.0f),
+	glm::vec3(-1.5f, -2.2f, -2.5f),
+	glm::vec3(-3.8f, -2.0f, -12.3f),
+	glm::vec3(2.4f, -0.4f, -3.5f),
+	glm::vec3(-1.7f,  3.0f, -7.5f),
+	glm::vec3(1.3f, -2.0f, -2.5f),
+	glm::vec3(1.5f,  2.0f, -2.5f),
+	glm::vec3(1.5f,  0.2f, -1.5f),
+	glm::vec3(-1.3f,  1.0f, -1.5f)
+	};
 
 	while (!window->windowShouldClose) {
 		window->Update();
 
 		shader->Bind();
-		texture->Bind();
-		shader->SetMat4f("transform", trans);
-		renderer->drawObject();
+		GLfloat radius = 1.0f;
+		GLfloat camX = sin(glfwGetTime() * radius);
+		GLfloat camZ = cos(glfwGetTime() * radius);
+		view = glm::lookAt(glm::vec3(camX, 0, camZ), viewTarget, up);
+		shader->SetMat4f("view", view);
+		shader->SetMat4f("projection", projection);
+
+		for (GLuint i = 0; i < 1; i++) {
+			//texture->Bind();
+			glm::mat4 model(1.0f);
+			model = glm::translate(model, cubePositions[i]);
+			model = glm::rotate(model, (GLfloat)sin(glfwGetTime()), glm::vec3(0.1f, 0.3f, 1.0f));
+			model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+			shader->SetMat4f("model", model);
+			renderer->drawObject();
+		}
+
 		window->SwapBuffers();
 	}
 

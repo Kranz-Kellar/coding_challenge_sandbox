@@ -1,14 +1,11 @@
 #include "Window.h"
-#include <iostream>
 
-///#define genericInputCallback(functionName)\
-	[](GLFWwindow* window, const auto... args) {\
-		const auto ptr = static_cast<Input*>(glfwGetWindowUserPointer(window));\
-		if (ptr->functionName) { ptr->functionName(args...); }\
-	}
 
-Window::Window(int width, int height, const char* title)
+
+
+Window::Window(Camera* camera, int width, int height, const char* title)
 {
+	this->camera = camera;
 	this->width = width;
 	this->height = height;
 	this->title = title;
@@ -42,7 +39,7 @@ void Window::Init()
 		Shutdown();
 		return;
 	}
-
+	glfwSetWindowUserPointer(windowPtr, this);
 	glfwMakeContextCurrent(this->windowPtr);
 
 	//Load glew here
@@ -56,9 +53,16 @@ void Window::Init()
 
 	glViewport(0, 0, this->width, this->height);
 
+	//Немного магии
+#define genericCallback(functionName)\
+	[](GLFWwindow* window, const auto... args) {\
+		const auto ptr = static_cast<Window*>(glfwGetWindowUserPointer(window));\
+		if (ptr->functionName) {\
+			ptr->functionName(args...); }\
+	}
 
-
-
+	glfwSetKeyCallback(this->windowPtr, genericCallback(keyPressed));
+	glfwSetCursorPosCallback(this->windowPtr, genericCallback(mouseCallback));
 }
 
 void Window::Update()
@@ -78,8 +82,20 @@ void Window::SwapBuffers()
 	glfwSwapBuffers(this->windowPtr);
 }
 
+void Window::SetCursor(bool value)
+{
+	if (value == true) {
+		glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	else {
+		glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+
+}
+
 void Window::Shutdown()
 {
 	glfwDestroyWindow(this->windowPtr);
 	glfwTerminate();
 }
+

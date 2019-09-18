@@ -15,25 +15,41 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 #include "Camera.h"
+#include "InputManager.h"
+#include "EventManager.h"
 
 using namespace std;
+
 
 int main() {
 	glm::vec3 viewPos = glm::vec3(0.0f, 0.0f, 3.0f);
 	glm::vec3 viewTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+	Camera* camera = new Camera();
+	Window* window = new Window(camera, 800, 600, "Title");
+
+	window->subscribeOnEventType(EV_KEY_ESC);
+	window->SetCursor(false);
+
+	InputManager* inputManager = new InputManager();
+	inputManager->subscribeOnEventType(EV_KEY_W);
+	inputManager->subscribeOnEventType(EV_KEY_A);
+	inputManager->subscribeOnEventType(EV_KEY_S);
+	inputManager->subscribeOnEventType(EV_KEY_D);
+
+	EventManager::AddSystem(inputManager);
+	EventManager::AddSystem(window);
+
+	glfwSetWindowUserPointer(window->GetWindowPointer(), inputManager);
 
 
 	ResourceManager* resManager = new ResourceManager();
 
-	Camera* camera = new Camera();
-
-	Window* window = new Window(camera, 800, 600, "Title");
-	window->SetCursor(false);
+	
 	Renderer* renderer = new Renderer();
 
-	Shader* shader = resManager->LoadShader("res/shaders/base_vector_shader.vs",
-		"res/shaders/base_fragment_shader.fs");
+	Shader* shader = resManager->LoadShader("F:/UnnamedEngine/Debug/res/shaders/base_vector_shader.vs",
+		"F:/UnnamedEngine/Debug/res/shaders/base_fragment_shader.fs");
 
 	Texture2D* texture = resManager->LoadTexture("res/textures/test.png");
 
@@ -48,6 +64,8 @@ int main() {
 	glm::vec3 cubePosition(0.0f, 0.0f, 0.0f);
 
 	while (!window->windowShouldClose) {
+	
+		EventManager::ProcessEvents();
 		window->Update();
 
 		shader->Bind();
@@ -63,6 +81,8 @@ int main() {
 		renderer->drawObject();
 
 		window->SwapBuffers();
+
+		//Получаем эвенты
 	}
 
 	window->Shutdown();

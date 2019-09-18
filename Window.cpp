@@ -1,5 +1,5 @@
 #include "Window.h"
-
+#include "InputManager.h"
 
 
 
@@ -39,7 +39,7 @@ void Window::Init()
 		Shutdown();
 		return;
 	}
-	glfwSetWindowUserPointer(windowPtr, this);
+	
 	glfwMakeContextCurrent(this->windowPtr);
 
 	//Load glew here
@@ -56,7 +56,7 @@ void Window::Init()
 	//Немного магии
 #define genericCallback(functionName)\
 	[](GLFWwindow* window, const auto... args) {\
-		const auto ptr = static_cast<Window*>(glfwGetWindowUserPointer(window));\
+		const auto ptr = static_cast<InputManager*>(glfwGetWindowUserPointer(window));\
 		if (ptr->functionName) {\
 			ptr->functionName(args...); }\
 	}

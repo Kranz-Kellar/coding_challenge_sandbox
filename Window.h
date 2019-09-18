@@ -2,11 +2,12 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <functional>
+
 #include <iostream>
 #include "Camera.h"
+#include "System.h"
 
-class Window
+class Window : public System
 {
 
 	GLFWwindow* windowPtr;
@@ -14,9 +15,6 @@ class Window
 	Camera* camera;
 
 	void Init();
-
-
-
 public:
 	GLint width, height;
 	Window(Camera* camera, int width, int height, const char* title);
@@ -29,19 +27,21 @@ public:
 
 	bool windowShouldClose;
 
+	GLFWwindow* GetWindowPointer() {
+		return this->windowPtr;
+	}
 
-	std::function<void(int, int, int, int)> keyPressed = [&](auto key, auto scancode, auto action, auto mode) {
-		std::cout << "W KEY" << std::endl;
-		if (key == GLFW_KEY_ESCAPE) {
-			glfwSetWindowShouldClose(windowPtr, true);
+	void processEvent(Event* event) {
+		switch (event->type) {
+		case EV_DEBUG:
+			std::cout << "WINDOW::EV_DEBUG" << std::endl;
+			break;
+		case EV_KEY_ESC:
+			this->windowShouldClose = true;
+			break;
 		}
-	};
-
-	std::function<void(double, double)> mouseCallback = [&](auto xpos, auto ypos) {
-		std::cout << "Mouse x: " << xpos << std::endl;
-		std::cout << "Mouse y: " << ypos << std::endl;
-		camera->ProcessMouseMovement(xpos, ypos);
-	};
+	}
+	
 
 
 };

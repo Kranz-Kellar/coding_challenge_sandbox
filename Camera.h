@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
@@ -75,8 +75,9 @@ public:
 		if (lastX == newX && lastY == newY)
 			return;
 
-		float xoffset = lastX - newX;
-		float yoffset = newY - lastY;
+		//Поменяй, если нужно будет реверснуть движение мыши
+		float xoffset = newX - lastX;
+		float yoffset = lastY - newY;
 
 		lastX = newX;
 		lastY = newY;

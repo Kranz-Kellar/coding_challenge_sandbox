@@ -26,7 +26,7 @@ int main() {
 	glm::vec3 viewTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 	Camera* camera = new Camera();
-	Window* window = new Window(camera, 800, 600, "Title");
+	Window* window = new Window(camera, 800, 600, "Boxel");
 
 	window->subscribeOnEventType(EV_KEYBOARD);
 	window->subscribeOnEventType(EV_MOUSE);
@@ -68,21 +68,14 @@ int main() {
 		EventManager::ProcessEvents();
 		window->Update();
 
-		shader->Bind();
-		shader->SetMat4f("view", window->camera->GetViewMatrix());
-		shader->SetMat4f("projection", projection);
-
 
 		glm::mat4 model(1.0f);
-		model = glm::translate(model, cubePosition);
-		model = glm::rotate(model, (GLfloat)sin(glfwGetTime()), glm::vec3(0.1f, 0.3f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, (GLfloat)sin(glfwGetTime()), 0.0f));
+		//model = glm::rotate(model, (GLfloat)sin(glfwGetTime()), glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-		shader->SetMat4f("model", model);
-		renderer->drawObject();
+		renderer->drawObject(shader, model, window->camera->GetViewMatrix(), projection);
 
 		window->SwapBuffers();
-
-		//Получаем эвенты
 	}
 
 	window->Shutdown();

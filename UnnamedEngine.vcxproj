@@ -23,6 +23,7 @@
     <ProjectGuid>{D8D8DC43-7B19-441D-8B7E-ED073AE29B8D}</ProjectGuid>
     <RootNamespace>UnnamedEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -129,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ChunkRenderer.cpp" />
     <ClCompile Include="events\Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -145,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ChunkRenderer.h" />
     <ClInclude Include="events\Event.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="InputManager.h" />

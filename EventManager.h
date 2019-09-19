@@ -2,7 +2,7 @@
 
 #include <queue>
 #include <vector>
-#include "Event.h"
+#include "events/Event.h"
 #include "System.h"
 
 class EventManager
@@ -17,7 +17,7 @@ public:
 	}
 
 	static void ProcessEvents() {
-		for (int i = 0; i < EventManager::eventQueue.size(); i++) {
+		for (size_t i = 0; i < EventManager::eventQueue.size(); i++) {
 			Event* event = EventManager::eventQueue.front();
 			for (auto system : engineSystems) {
 				if (system->isSubscribedOnEventType(event->type)) {

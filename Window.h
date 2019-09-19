@@ -6,16 +6,19 @@
 #include <iostream>
 #include "Camera.h"
 #include "System.h"
+#include "events/KeyboardEvent.h"
+#include "events/MouseEvent.h"
 
 class Window : public System
 {
 
 	GLFWwindow* windowPtr;
 	const char* title;
-	Camera* camera;
+	
 
 	void Init();
 public:
+	Camera* camera;
 	GLint width, height;
 	Window(Camera* camera, int width, int height, const char* title);
 	~Window();
@@ -33,15 +36,30 @@ public:
 
 	void processEvent(Event* event) {
 		switch (event->type) {
-		case EV_DEBUG:
-			std::cout << "WINDOW::EV_DEBUG" << std::endl;
+		case EV_KEYBOARD:
+			std::cout << "WINDOW::KEYBOARD_EVENT" << std::endl;
+			processKeyboardEvent(static_cast<KeyboardEvent*>(event));
 			break;
-		case EV_KEY_ESC:
-			this->windowShouldClose = true;
+		case EV_MOUSE:
+			std::cout << "WINDOW::MOUSE_EVENT" << std::endl;
+			processMouseEvent(static_cast<MouseEvent*>(event));
 			break;
 		}
 	}
 	
+	void processKeyboardEvent(KeyboardEvent* event) {
+		if (event->keyboardState.key == GLFW_KEY_ESCAPE) {
+			this->windowShouldClose = true;
+		}
+	}
+
+	void processMouseEvent(MouseEvent* event) {
+
+		if (event == nullptr)
+			return;
+
+		camera->ProcessMouseMovement(event->mouseState.xpos, event->mouseState.ypos);
+	}
 
 
 };

@@ -28,14 +28,14 @@ int main() {
 	Camera* camera = new Camera();
 	Window* window = new Window(camera, 800, 600, "Title");
 
-	window->subscribeOnEventType(EV_KEY_ESC);
+	window->subscribeOnEventType(EV_KEYBOARD);
+	window->subscribeOnEventType(EV_MOUSE);
 	window->SetCursor(false);
 
 	InputManager* inputManager = new InputManager();
-	inputManager->subscribeOnEventType(EV_KEY_W);
-	inputManager->subscribeOnEventType(EV_KEY_A);
-	inputManager->subscribeOnEventType(EV_KEY_S);
-	inputManager->subscribeOnEventType(EV_KEY_D);
+	inputManager->subscribeOnEventType(EV_KEYBOARD);
+	inputManager->subscribeOnEventType(EV_MOUSE);
+	inputManager->subscribeOnEventType(EV_NONE);
 
 	EventManager::AddSystem(inputManager);
 	EventManager::AddSystem(window);
@@ -48,8 +48,8 @@ int main() {
 	
 	Renderer* renderer = new Renderer();
 
-	Shader* shader = resManager->LoadShader("F:/UnnamedEngine/Debug/res/shaders/base_vector_shader.vs",
-		"F:/UnnamedEngine/Debug/res/shaders/base_fragment_shader.fs");
+	Shader* shader = resManager->LoadShader("res/shaders/base_vector_shader.vs",
+		"res/shaders/base_fragment_shader.fs");
 
 	Texture2D* texture = resManager->LoadTexture("res/textures/test.png");
 
@@ -69,7 +69,7 @@ int main() {
 		window->Update();
 
 		shader->Bind();
-		shader->SetMat4f("view", camera->GetViewMatrix());
+		shader->SetMat4f("view", window->camera->GetViewMatrix());
 		shader->SetMat4f("projection", projection);
 
 

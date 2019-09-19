@@ -48,6 +48,26 @@ public:
 	}
 	
 	void processKeyboardEvent(KeyboardEvent* event) {
+		if (event == nullptr) {
+			return;
+		}
+
+		//Позже пристроим сюда вычисление нормальной дельты.
+#define DELTA_TIME 0.05
+
+		if (event->keyboardState.key == GLFW_KEY_W) {
+			camera->ProcessKeyboard(FORWARD, DELTA_TIME);
+		}
+		if (event->keyboardState.key == GLFW_KEY_A) {
+			camera->ProcessKeyboard(LEFT, DELTA_TIME);
+		}
+		if (event->keyboardState.key == GLFW_KEY_S) {
+			camera->ProcessKeyboard(BACKWARD, DELTA_TIME);
+		}
+		if (event->keyboardState.key == GLFW_KEY_D) {
+			camera->ProcessKeyboard(RIGHT, DELTA_TIME);
+		}
+
 		if (event->keyboardState.key == GLFW_KEY_ESCAPE) {
 			this->windowShouldClose = true;
 		}

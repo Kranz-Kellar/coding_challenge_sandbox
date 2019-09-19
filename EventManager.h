@@ -14,6 +14,7 @@ public:
 
 	static void InvokeEvent(Event* event) {
 		EventManager::eventQueue.push(event);
+		std::cout << "Pushing event. Size of event queue is " << sizeof(eventQueue) << std::endl;
 	}
 
 	static void ProcessEvents() {
@@ -25,6 +26,7 @@ public:
 				}
 			}
 			EventManager::eventQueue.pop();
+			delete event;
 		}
 	}
 

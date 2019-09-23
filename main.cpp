@@ -18,13 +18,14 @@
 #include "InputManager.h"
 #include "EventManager.h"
 
+
+#include "SandBox/Chunk.h"
+#include "ChunkRenderer.h"
+
 using namespace std;
 
 
 int main() {
-	glm::vec3 viewPos = glm::vec3(0.0f, 0.0f, 3.0f);
-	glm::vec3 viewTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 	Camera* camera = new Camera();
 	Window* window = new Window(camera, 800, 600, "Boxel");
 
@@ -46,15 +47,27 @@ int main() {
 	ResourceManager* resManager = new ResourceManager();
 
 	
-	Renderer* renderer = new Renderer();
+	Renderer* renderer = new Renderer(camera);
 
-	Shader* shader = resManager->LoadShader("res/shaders/base_vector_shader.vs",
-		"res/shaders/base_fragment_shader.fs");
+	ChunkRenderer* chunkRenderer = new ChunkRenderer(renderer);
 
-	Texture2D* texture = resManager->LoadTexture("res/textures/test.png");
+	Shader* shader = resManager->LoadShader("C:/Users/Дмитрий/Desktop/Workplace/coding_challenge_sandbox/Debug/res/shaders/base_vector_shader.vs",
+		"C:/Users/Дмитрий/Desktop/Workplace/coding_challenge_sandbox/Debug/res/shaders/base_fragment_shader.fs");
 
-	const float aspect =   window->width / window->height;
-	glm::mat4 projection = glm::ortho(-1.0f, 1.0f , -1.0f * aspect, 1.0f * aspect, 0.1f, 100.0f);
+	Texture2D* texture = resManager->LoadTexture("C:/Users/Дмитрий/Desktop/Workplace/coding_challenge_sandbox/Debug/res/textures/test.png");
+
+
+
+	Block* testBlocks[64];
+	Sprite* sprite = new Sprite(shader, texture);
+
+	for (unsigned int i = 0; i < 64; i++) {
+		Transform* transform = new Transform(glm::mat4(1.0f));
+		transform->Translate(glm::vec3(static_cast<GLfloat>(i), 0.0f, 0.0f));
+		testBlocks[i] = new Block(B_DIRT, transform, sprite);
+	}
+	Chunk* testChunk = new Chunk(testBlocks, 64);
+
 
 
 #ifdef _DEBUG
@@ -69,11 +82,13 @@ int main() {
 		window->Update();
 
 
-		glm::mat4 model(1.0f);
+		//glm::mat4 model(1.0f);
 		//model = glm::translate(model, glm::vec3(0.0f, (GLfloat)sin(glfwGetTime()), 0.0f));
 		//model = glm::rotate(model, (GLfloat)sin(glfwGetTime()), glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.0f));
-		renderer->drawObject(shader, model, window->camera->GetViewMatrix(), projection);
+		//model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.0f));
+		//renderer->drawObject(shader, model);
+
+		chunkRenderer->DrawChunk(testChunk);
 
 		window->SwapBuffers();
 	}
@@ -85,6 +100,8 @@ int main() {
 	delete window;
 	delete renderer;
 	delete camera;
+	/*delete testBlocks;*/
+	delete chunkRenderer;
 
 	return EXIT_SUCCESS;
 }

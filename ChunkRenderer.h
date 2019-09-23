@@ -1,20 +1,22 @@
 #pragma once
 #include <GL/glew.h>
+#include "Renderer.h"
+#include "SandBox/Chunk.h"
 
 
 class ChunkRenderer
 {
-	GLuint VAO;
-	GLuint VBO;
-	GLuint IBO;
+	Renderer* baseRenderer;
+	void Init();
 public:
 	
 
 
-	ChunkRenderer();
+	ChunkRenderer(Renderer* renderer);
+	~ChunkRenderer();
 
-	void Init();
-	void DrawChunk(/* Chunk goes here */);
+	
+	void DrawChunk(Chunk* chunk);
 	
 };
 

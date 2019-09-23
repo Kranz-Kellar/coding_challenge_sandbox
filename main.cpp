@@ -29,7 +29,7 @@ int main() {
 	Window* window = new Window(camera, 800, 600, "Boxel");
 
 	window->subscribeOnEventType(EV_KEYBOARD);
-	window->subscribeOnEventType(EV_MOUSE);
+	//window->subscribeOnEventType(EV_MOUSE);
 	window->SetCursor(false);
 
 	InputManager* inputManager = new InputManager();
@@ -53,8 +53,8 @@ int main() {
 
 	Texture2D* texture = resManager->LoadTexture("res/textures/test.png");
 
-	
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)window->width / (GLfloat)window->height, 0.1f, 100.0f);
+	const float aspect =   window->width / window->height;
+	glm::mat4 projection = glm::ortho(-1.0f, 1.0f , -1.0f * aspect, 1.0f * aspect, 0.1f, 100.0f);
 
 
 #ifdef _DEBUG
@@ -70,9 +70,9 @@ int main() {
 
 
 		glm::mat4 model(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, (GLfloat)sin(glfwGetTime()), 0.0f));
+		//model = glm::translate(model, glm::vec3(0.0f, (GLfloat)sin(glfwGetTime()), 0.0f));
 		//model = glm::rotate(model, (GLfloat)sin(glfwGetTime()), glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.0f));
 		renderer->drawObject(shader, model, window->camera->GetViewMatrix(), projection);
 
 		window->SwapBuffers();

@@ -25,10 +25,10 @@ public:
 	~Shader();
 	
 
-	void Bind();
-	void SetUniform4f(const char* uniformName, float x, float y, float z, float w);
+	void Bind() const;
+	void SetUniform4f(const char* uniformName, float x, float y, float z, float w) const;
 	//TODO: setters for all kind of uniforms
-	void SetMat4f(const char* uniformName, glm::mat4 mat);
+	void SetMat4f(const char* uniformName, glm::mat4 mat) const;
 
 };
 

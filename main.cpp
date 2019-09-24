@@ -22,15 +22,22 @@
 #include "SandBox/Chunk.h"
 #include "ChunkRenderer.h"
 
+#include "Logger.h"
+
 using namespace std;
 
 
 int main() {
+
+#ifdef _DEBUG
+	Logger::Log("DEBUG_MOD_ACTIVE", LOG_INFO);
+#endif
+
 	Camera* camera = new Camera();
 	Window* window = new Window(camera, 800, 600, "Boxel");
 
 	window->subscribeOnEventType(EV_KEYBOARD);
-	//window->subscribeOnEventType(EV_MOUSE);
+  //window->subscribeOnEventType(EV_MOUSE);
 	window->SetCursor(false);
 
 	InputManager* inputManager = new InputManager();

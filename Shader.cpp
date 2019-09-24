@@ -1,10 +1,13 @@
 #include "Shader.h"
+#include "Logger.h"
 
 #define INFO_LOG_SIZE 512
 
 
 GLuint Shader::Compile(const char* source, ShaderType type)
 {
+	if (source == nullptr) return NULL;
+
 	GLuint shaderId;
 	switch (type) {
 	case VERTEX:
@@ -39,11 +42,12 @@ bool Shader::IsCompileSuccess(GLuint shader)
 	return true;
 }
 
-Shader::Shader(const char* vertexShaderPath, const char* fragmentShaderPath)
+Shader::Shader(const char* vertexShaderSource, const char* fragmentShaderSource)
 {
-		//Getting source code with resource manager
-	const char* vertexShaderSource = vertexShaderPath;
-	const char* fragmentShaderSource = fragmentShaderPath;
+	if (vertexShaderSource == nullptr || fragmentShaderSource == nullptr) {
+		Logger::Log("Shader source is null", LOG_ERROR);
+		return;
+	}
 
 	GLuint vertexShader = Compile(vertexShaderSource, VERTEX);
 	GLuint fragmentShader = Compile(fragmentShaderSource, FRAGMENT);
@@ -76,18 +80,18 @@ Shader::~Shader()
 	glDeleteProgram(this->id);
 }
 
-void Shader::Bind()
+void Shader::Bind() const
 {
 	glUseProgram(this->id);
 }
 
-void Shader::SetUniform4f(const char* uniformName, float x, float y, float z, float w)
+void Shader::SetUniform4f(const char* uniformName, float x, float y, float z, float w) const
 {
 	GLuint uniformLocation = glGetUniformLocation(this->id, uniformName);
 	glUniform4f(uniformLocation, x, y, z, w);
 }
 
-void Shader::SetMat4f(const char* uniformName, glm::mat4 mat)
+void Shader::SetMat4f(const char* uniformName, glm::mat4 mat) const
 {
 	GLuint uniformLocation = glGetUniformLocation(this->id, uniformName);
 	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(mat));

@@ -135,6 +135,7 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="events\KeyboardEvent.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="events\MouseEvent.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="events\KeyboardEvent.h" />
     <ClInclude Include="events\MouseEvent.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />

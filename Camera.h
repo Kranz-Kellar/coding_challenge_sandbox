@@ -11,11 +11,11 @@ enum CameraMovement {
 	RIGHT
 };
 
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
-const float SPEED = 2.5f;
-const float SENSITIVITY = 0.1f;
-const float ZOOM = 45.0f;
+const double YAW = -90.0f;
+const double PITCH = 0.0f;
+const double SPEED = 2.5f;
+const double SENSITIVITY = 0.1f;
+const double ZOOM = 45.0f;
 
 class Camera
 {
@@ -27,19 +27,19 @@ public:
 	glm::vec3 Right;
 	glm::vec3 WorldUp;
 
-	float Yaw;
-	float Pitch;
+	double Yaw;
+	double Pitch;
 
-	float MovementSpeed;
-	float MouseSensitivity;
-	float Zoom;
+	double MovementSpeed;
+	double MouseSensitivity;
+	double Zoom;
 
-	float lastX;
-	float lastY;
+	double lastX;
+	double lastY;
 
 
 	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
-		float yaw = YAW, float pitch = PITCH)
+		double yaw = YAW, double pitch = PITCH)
 		: Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM), lastY(300), lastX(400)
 	{
 		Position = position;
@@ -56,7 +56,7 @@ public:
 	}
 
 	
-	void ProcessKeyboard(CameraMovement direction, float deltaTime)
+	void ProcessKeyboard(CameraMovement direction, double deltaTime)
 	{
 		float velocity = MovementSpeed * deltaTime;
 		if (direction == FORWARD)
@@ -70,14 +70,14 @@ public:
 	}
 
 
-	void ProcessMouseMovement(float newX, float newY , GLboolean constrainPitch = true)
+	void ProcessMouseMovement(double newX, double newY , GLboolean constrainPitch = true)
 	{
 		if (lastX == newX && lastY == newY)
 			return;
 
 		//Поменяй, если нужно будет реверснуть движение мыши
-		float xoffset = newX - lastX;
-		float yoffset = lastY - newY;
+		double xoffset = newX - lastX;
+		double yoffset = lastY - newY;
 
 		lastX = newX;
 		lastY = newY;
@@ -102,7 +102,7 @@ public:
 	}
 
 
-	void ProcessMouseScroll(float yoffset)
+	void ProcessMouseScroll(double yoffset)
 	{
 		if (Zoom >= 1.0f && Zoom <= 45.0f)
 			Zoom -= yoffset;

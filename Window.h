@@ -53,7 +53,7 @@ public:
 		}
 
 		//Позже пристроим сюда вычисление нормальной дельты.
-#define DELTA_TIME 0.05
+#define DELTA_TIME 0.05f
 
 		if (event->keyboardState.key == GLFW_KEY_W) {
 			camera->ProcessKeyboard(FORWARD, DELTA_TIME);

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 #include <fstream>
 
 enum LogStatus {
@@ -33,12 +33,21 @@ class Logger
 	}
 
 	static const char* logFileName;
+	static bool consoleLog;
 
 public:
 	static void Log(std::string msg, LogStatus status) {
 		std::string fullMsg = "[" + LogStatusToString(status) + "]::" + msg;
 
 		WriteMsgToFile(logFileName, fullMsg);
+
+		if (consoleLog) {
+			std::cout << fullMsg << std::endl;
+		}
+	}
+
+	static void SetConsoleLog(bool value) {
+		consoleLog = value;
 	}
 };
 

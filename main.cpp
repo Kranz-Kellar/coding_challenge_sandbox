@@ -70,7 +70,6 @@ int main() {
 
 	Block* testBlocks[64];
 	std::shared_ptr<Sprite> sprite = resManager->GenerateSpriteFromTextureWithShader("Sprite", "BaseTexture", "BaseShader");
-
 	
 
 	for (unsigned int i = 0; i < 64; i++) {
@@ -96,7 +95,7 @@ int main() {
 		elapsedTime = currentTime - lastTime;
 		
 
-		std::cout << elapsedTime << std::endl;
+		//std::cout << elapsedTime << std::endl;
 
 		EventManager::ProcessEvents();
 		window->Update();

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 
+
 enum LogStatus {
 	LOG_DEBUG,
 	LOG_INFO,

@@ -133,6 +133,7 @@
     <ClCompile Include="ChunkRenderer.cpp" />
     <ClCompile Include="events\Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="events\KeyboardEvent.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="events\MouseEvent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SettingsManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Texture2D.cpp" />
@@ -151,12 +153,14 @@
     <ClInclude Include="ChunkRenderer.h" />
     <ClInclude Include="events\Event.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="FileIO.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="events\KeyboardEvent.h" />
     <ClInclude Include="events\MouseEvent.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SettingsManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Texture2D.h" />

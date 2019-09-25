@@ -11,19 +11,17 @@ class Block
 {
 public:
 
-	Block(BlockType type, Transform* transform, Sprite* sprite) {
+	Block(BlockType type, std::shared_ptr<Transform> transform, std::shared_ptr<Sprite> sprite) {
 		this->type = type;
 		this->transform = transform;
 		this->sprite = sprite;
 	};
 
 	BlockType type;
-	Transform* transform;
-	Sprite* sprite;
+	std::shared_ptr<Transform> transform;
+	std::shared_ptr<Sprite> sprite;
 
-	~Block() {
-		
-	};
+	
 };
 
 

@@ -15,5 +15,7 @@ public:
 		this->texture = texture;
 	}
 
+	void* operator new(size_t size) = delete;
+
 };
 

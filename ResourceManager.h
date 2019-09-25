@@ -12,7 +12,7 @@
 
 
 /*
- TODO: Хранение шейдеров, текстур, спрайтов и прочих ресурсов в хеш-таблицах
+
 */
 
 class ResourceManager
@@ -30,11 +30,9 @@ public:
 
 	 
 	 std::shared_ptr<Shader> LoadShader(std::string pathToVector, std::string pathToFragment);
-	 std::shared_ptr<Shader> LoadShaderWithName(std::string name, std::string pathToVector, std::string pathToFragment);
 	 std::shared_ptr<Texture2D> LoadTexture(std::string path);
 	 std::shared_ptr<Texture2D> LoadTextureWithName(std::string name, std::string path);
-
-	 //Заглушка для последующего апгрейда с хеш-таблицами
+	 std::shared_ptr<Shader> LoadShaderWithName(std::string name, std::string pathToVector, std::string pathToFragment);
 	 std::shared_ptr<Sprite> GenerateSpriteFromTextureWithShader(std::string spriteName, std::string textureName, std::string shaderName);
 
 	 void ReleaseResources();

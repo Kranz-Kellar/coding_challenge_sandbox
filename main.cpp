@@ -3,6 +3,7 @@
 #define EXIT_FAILURE 1
 
 #include <iostream>
+#include <ctime>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -32,6 +33,8 @@ int main() {
 #ifdef _DEBUG
 	Logger::Log("DEBUG_MOD_ACTIVE", LOG_INFO);
 #endif
+
+	srand(static_cast<unsigned>(time(0)));
 
 	Camera* camera = new Camera();
 	Window* window = new Window(camera, 800, 600, "Boxel");
@@ -66,12 +69,15 @@ int main() {
 
 
 	Block* testBlocks[64];
-	Sprite* sprite = new Sprite(shader, texture);
+	std::shared_ptr<Sprite> sprite = resManager->GenerateSpriteFromTextureWithShader("Sprite", "BaseTexture", "BaseShader");
+
+	
 
 	for (unsigned int i = 0; i < 64; i++) {
-		Transform* transform = new Transform(glm::mat4(1.0f));
-		transform->Translate(glm::vec3(static_cast<GLfloat>(i) / 10, static_cast<GLfloat>(i) / 10, 0.0f));
-		transform->Scale(glm::vec3(0.1f, 0.1f, 0.0f));
+		std::shared_ptr<Transform> transform = std::make_shared<Transform>(glm::mat4(1.0f));
+		transform->Translate(glm::vec3(static_cast<GLfloat>(rand()) / (static_cast<GLfloat>(RAND_MAX/10.0f)),
+			static_cast<GLfloat>(rand()) / (static_cast<GLfloat>(RAND_MAX / 10.0f)), 0.0f));
+		//transform->Scale(glm::vec3(0.3f, 0.3f, 0.0f));
 		testBlocks[i] = new Block(B_DIRT, transform, sprite);
 	}
 

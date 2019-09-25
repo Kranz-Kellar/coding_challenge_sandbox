@@ -75,6 +75,7 @@ std::shared_ptr<Texture2D> ResourceManager::LoadTexture(std::string path)
 std::shared_ptr<Texture2D> ResourceManager::LoadTextureWithName(std::string name, std::string path)
 {
 	int width, height;
+
 	unsigned char* image = SOIL_load_image(path.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 	if (image != nullptr) {
 		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>(width, height, image);

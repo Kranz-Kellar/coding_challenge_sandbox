@@ -88,15 +88,24 @@ int main() {
 #ifdef _DEBUG
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 #endif
-
+	double lastTime = glfwGetTime();
+	double currentTime = 0.0f;
+	double elapsedTime;
 	while (!window->windowShouldClose) {
-	
+		currentTime = glfwGetTime();
+		elapsedTime = currentTime - lastTime;
+		
+
+		std::cout << elapsedTime << std::endl;
+
 		EventManager::ProcessEvents();
 		window->Update();
 
 		chunkRenderer->DrawChunk(testChunk);
 
 		window->SwapBuffers();
+
+		lastTime = currentTime;
 	}
 
 	window->Shutdown();

@@ -39,6 +39,9 @@ public:
 	double lastX;
 	double lastY;
 
+	//Добавить понятие цели
+	//Камера постоянно будет следит за этой целью, обновляя свои координаты, когда цель будет передвигаться
+
 
 	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
 		double yaw = YAW, double pitch = PITCH)
@@ -48,6 +51,16 @@ public:
 		WorldUp = up;
 		Yaw = yaw;
 		Pitch = pitch;
+		updateCameraVectors();
+	}
+
+	Camera(glm::vec3 position )
+		: Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM), lastY(300), lastX(400)
+	{
+		Position = glm::vec3(0.0f, 0.0f, 10.0f);
+		WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
+		Yaw = YAW;
+		Pitch = PITCH;
 		updateCameraVectors();
 	}
 

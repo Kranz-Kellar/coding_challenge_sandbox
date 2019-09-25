@@ -63,7 +63,7 @@ Renderer::Renderer(Camera* camera)
 	Init();
 }
 
-void Renderer::drawObject(Shader* shader, glm::mat4 model /* Texture goes here */)
+void Renderer::drawObject(std::shared_ptr<Shader> shader, glm::mat4 model /* Texture goes here */)
 {
 	shader->Bind();
 	shader->SetMat4f("view", camera->GetViewMatrix());

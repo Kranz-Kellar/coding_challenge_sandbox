@@ -18,7 +18,7 @@ class Renderer
 public:
 	Renderer(Camera* camera);
 
-	void drawObject(Shader* shader, glm::mat4 model);
+	void drawObject(std::shared_ptr<Shader> shader, glm::mat4 model);
 
 };
 

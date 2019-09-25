@@ -63,6 +63,9 @@ void Window::Init()
 
 	glfwSetKeyCallback(this->windowPtr, genericCallback(keyPressed));
 	glfwSetCursorPosCallback(this->windowPtr, genericCallback(mouseCallback));
+
+	cursorPtr = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
+	glfwSetCursor(this->windowPtr, cursorPtr);
 }
 
 void Window::Update()
@@ -95,6 +98,7 @@ void Window::SetCursor(bool value)
 
 void Window::Shutdown()
 {
+	glfwDestroyCursor(cursorPtr);
 	glfwDestroyWindow(this->windowPtr);
 	glfwTerminate();
 }

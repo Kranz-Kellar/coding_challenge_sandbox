@@ -10,10 +10,8 @@ public:
 	Block* blocks[MAX_CHUNK_SIZE];
 
 
-	Chunk(Block* generatedBlocks[], int size) {
-		if (size > MAX_CHUNK_SIZE) {
-			return;
-		}
+	Chunk(Block* generatedBlocks[]) {
+		*blocks = *generatedBlocks;
 
 		for (unsigned int i = 0; i < MAX_CHUNK_SIZE; i++) {
 			blocks[i] = generatedBlocks[i];

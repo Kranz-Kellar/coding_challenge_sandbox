@@ -3,13 +3,14 @@
 #include "..//Shader.h"
 #include "..//Texture2D.h"
 
+//Вся информация для рендерера
 class Sprite
 {
 public:
-	Shader* shader;
-	Texture2D* texture;
+	std::shared_ptr<Shader> shader;
+	std::shared_ptr<Texture2D> texture;
 
-	Sprite(Shader* shader, Texture2D* texture) {
+	Sprite(std::shared_ptr<Shader> shader, std::shared_ptr<Texture2D> texture) {
 		this->shader = shader;
 		this->texture = texture;
 	}

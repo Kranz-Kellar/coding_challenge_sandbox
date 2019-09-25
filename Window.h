@@ -13,6 +13,7 @@ class Window : public System
 {
 
 	GLFWwindow* windowPtr;
+	GLFWcursor* cursorPtr;
 	const char* title;
 	
 
@@ -56,13 +57,13 @@ public:
 #define DELTA_TIME 0.05f
 
 		if (event->keyboardState.key == GLFW_KEY_W) {
-			camera->ProcessKeyboard(FORWARD, DELTA_TIME);
+			camera->ProcessKeyboard(UP, DELTA_TIME);
 		}
 		if (event->keyboardState.key == GLFW_KEY_A) {
 			camera->ProcessKeyboard(LEFT, DELTA_TIME);
 		}
 		if (event->keyboardState.key == GLFW_KEY_S) {
-			camera->ProcessKeyboard(BACKWARD, DELTA_TIME);
+			camera->ProcessKeyboard(DOWN, DELTA_TIME);
 		}
 		if (event->keyboardState.key == GLFW_KEY_D) {
 			camera->ProcessKeyboard(RIGHT, DELTA_TIME);

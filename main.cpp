@@ -58,10 +58,10 @@ int main() {
 
 	ChunkRenderer* chunkRenderer = new ChunkRenderer(renderer);
 
-	Shader* shader = resManager->LoadShader("C:/Users/Дмитрий/Desktop/Workplace/coding_challenge_sandbox/Debug/res/shaders/base_vector_shader.vs",
+	std::shared_ptr<Shader> shader = resManager->LoadShaderWithName("BaseShader","C:/Users/Дмитрий/Desktop/Workplace/coding_challenge_sandbox/Debug/res/shaders/base_vector_shader.vs",
 		"C:/Users/Дмитрий/Desktop/Workplace/coding_challenge_sandbox/Debug/res/shaders/base_fragment_shader.fs");
 
-	Texture2D* texture = resManager->LoadTexture("C:/Users/Дмитрий/Desktop/Workplace/coding_challenge_sandbox/Debug/res/textures/test.png");
+	std::shared_ptr<Texture2D> texture = resManager->LoadTextureWithName("BaseTexture","C:/Users/Дмитрий/Desktop/Workplace/coding_challenge_sandbox/Debug/res/textures/test.png");
 
 
 
@@ -70,10 +70,12 @@ int main() {
 
 	for (unsigned int i = 0; i < 64; i++) {
 		Transform* transform = new Transform(glm::mat4(1.0f));
-		transform->Translate(glm::vec3(static_cast<GLfloat>(i), 0.0f, 0.0f));
+		transform->Translate(glm::vec3(static_cast<GLfloat>(i) / 10, static_cast<GLfloat>(i) / 10, 0.0f));
+		transform->Scale(glm::vec3(0.1f, 0.1f, 0.0f));
 		testBlocks[i] = new Block(B_DIRT, transform, sprite);
 	}
-	Chunk* testChunk = new Chunk(testBlocks, 64);
+
+	Chunk* testChunk = new Chunk(testBlocks);
 
 
 
@@ -81,19 +83,10 @@ int main() {
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 #endif
 
-	glm::vec3 cubePosition(0.0f, 0.0f, 0.0f);
-
 	while (!window->windowShouldClose) {
 	
 		EventManager::ProcessEvents();
 		window->Update();
-
-
-		//glm::mat4 model(1.0f);
-		//model = glm::translate(model, glm::vec3(0.0f, (GLfloat)sin(glfwGetTime()), 0.0f));
-		//model = glm::rotate(model, (GLfloat)sin(glfwGetTime()), glm::vec3(0.0f, 0.0f, 0.0f));
-		//model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.0f));
-		//renderer->drawObject(shader, model);
 
 		chunkRenderer->DrawChunk(testChunk);
 

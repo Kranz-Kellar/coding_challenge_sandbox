@@ -23,6 +23,8 @@ class Logger
 		case LOG_ERROR:
 			return "ERROR";
 		}
+
+		return "UNKNOW";
 	}
 
 	static void WriteMsgToFile(std::string path, std::string msg) {
@@ -36,6 +38,7 @@ class Logger
 	static bool consoleLog;
 
 public:
+
 	static void Log(std::string msg, LogStatus status) {
 		std::string fullMsg = "[" + LogStatusToString(status) + "]::" + msg;
 

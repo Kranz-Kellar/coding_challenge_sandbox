@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <Box2D/Box2D.h>
 
 #include "Window.h"
 #include "Shader.h"
@@ -70,7 +71,7 @@ int main() {
 
 
 
-	Block* testBlocks[64];
+	std::vector<Block*> testBlocks;
 	std::shared_ptr<Sprite> sprite = resManager->GenerateSpriteFromTextureWithShader("Sprite", "BaseTexture", "BaseShader");
 	
 
@@ -79,7 +80,7 @@ int main() {
 		transform->Translate(glm::vec3(static_cast<GLfloat>(rand()) / (static_cast<GLfloat>(RAND_MAX/10.0f)),
 			static_cast<GLfloat>(rand()) / (static_cast<GLfloat>(RAND_MAX / 10.0f)), 0.0f));
 		//transform->Scale(glm::vec3(0.3f, 0.3f, 0.0f));
-		testBlocks[i] = new Block(B_DIRT, transform, sprite);
+		testBlocks.push_back(new Block(B_DIRT, transform, sprite));
 	}
 
 	Chunk* testChunk = new Chunk(testBlocks);
@@ -115,7 +116,6 @@ int main() {
 	delete window;
 	delete renderer;
 	delete camera;
-	/*delete testBlocks;*/
 	delete chunkRenderer;
 
 	return EXIT_SUCCESS;

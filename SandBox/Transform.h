@@ -3,18 +3,28 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
+struct Point {
+	double x;
+	double y;
+};
+
 class Transform
 {
-
+	
 	glm::mat4 model;
 
 public:
+	Point position;
 	Transform(glm::mat4 matrix) {
 		model = matrix;
+		position.x = 0;
+		position.y = 0;
 	}
 
 	void Translate(glm::vec3 vec) {
 		model = glm::translate(model, vec);
+		position.x = vec.x;
+		position.y = vec.y;
 	}
 
 	void Scale(glm::vec3 vec) {

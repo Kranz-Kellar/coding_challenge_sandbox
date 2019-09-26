@@ -25,6 +25,8 @@
 
 #include "Logger.h"
 
+#include "mem/Allocator.h"
+
 using namespace std;
 
 
@@ -81,7 +83,6 @@ int main() {
 	}
 
 	Chunk* testChunk = new Chunk(testBlocks);
-
 
 
 #ifdef _DEBUG

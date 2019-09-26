@@ -1,1 +1,1 @@
-[INFO]::DEBUG_MOD_ACTIVE
+[ERROR]::Allocator::Trying to allocate invalid size of memory. Size was 1024

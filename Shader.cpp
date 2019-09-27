@@ -8,7 +8,7 @@ GLuint Shader::Compile(const char* source, ShaderType type)
 {
 	if (source == nullptr) return NULL;
 
-	GLuint shaderId;
+	GLuint shaderId = 0;
 	switch (type) {
 	case VERTEX:
 		shaderId = glCreateShader(GL_VERTEX_SHADER);

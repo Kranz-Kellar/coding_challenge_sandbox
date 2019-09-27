@@ -1,4 +1,6 @@
 ﻿
+#pragma warning(disable : 4244)
+
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
 
@@ -22,6 +24,7 @@
 
 
 #include "SandBox/Chunk.h"
+#include "SandBox/MapGenerator.h"
 #include "ChunkRenderer.h"
 
 #include "Logger.h"
@@ -36,6 +39,8 @@ int main() {
 #ifdef _DEBUG
 	Logger::Log("DEBUG_MOD_ACTIVE", LOG_INFO);
 #endif
+
+	//b2World* world = new b2World(b2Vec2(0.0f, -10.0f));
 
 	srand(static_cast<unsigned>(time(0)));
 
@@ -56,6 +61,7 @@ int main() {
 
 	glfwSetWindowUserPointer(window->GetWindowPointer(), inputManager);
 
+	
 
 	ResourceManager* resManager = new ResourceManager();
 
@@ -76,11 +82,10 @@ int main() {
 	
 
 	for (unsigned int i = 0; i < 64; i++) {
-		std::shared_ptr<Transform> transform = std::make_shared<Transform>(glm::mat4(1.0f));
-		transform->Translate(glm::vec3(static_cast<GLfloat>(rand()) / (static_cast<GLfloat>(RAND_MAX/10.0f)),
-			static_cast<GLfloat>(rand()) / (static_cast<GLfloat>(RAND_MAX / 10.0f)), 0.0f));
-		//transform->Scale(glm::vec3(0.3f, 0.3f, 0.0f));
+		Transform transform(nullptr);
+		transform.Translate(static_cast<GLfloat>(i), static_cast<GLfloat>(i));
 		testBlocks.push_back(new Block(B_DIRT, transform, sprite));
+
 	}
 
 	Chunk* testChunk = new Chunk(testBlocks);
@@ -117,6 +122,11 @@ int main() {
 	delete renderer;
 	delete camera;
 	delete chunkRenderer;
+
+
+	ChunkManager manager;
+	manager.GenerateChunk();
+
 
 	return EXIT_SUCCESS;
 }

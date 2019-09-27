@@ -2,7 +2,6 @@
 #include "Transform.h"
 #include "Sprite.h"
 
-#include <Box2D/Box2D.h>
 
 enum BlockType {
 	B_EMPTY,
@@ -12,24 +11,37 @@ enum BlockType {
 class Block
 {
 public:
+	BlockType type;
+	Transform transform;
+	std::shared_ptr<Sprite> sprite;
 
-	b2BodyDef body;
-	b2Body* groundBody;
+	Block(BlockType type) {
+		this->type = type;
+	};
 
-	Block(BlockType type, std::shared_ptr<Transform> transform, std::shared_ptr<Sprite> sprite) {
+	Block(BlockType type, Transform &transform) {
+		this->type = type;
+		this->transform = transform;
+	};
+
+	Block(BlockType type, Transform& transform, std::shared_ptr<Sprite> sprite) {
 		this->type = type;
 		this->transform = transform;
 		this->sprite = sprite;
-
-		body.position.Set(0.0f, 0.0f);
-		
 	};
 
-	BlockType type;
-	std::shared_ptr<Transform> transform;
-	std::shared_ptr<Sprite> sprite;
 
-	
+	void SetTransfrom(Transform transfrom) {
+		this->transform = transform;
+	}
+
+	void SetTransformByMapPosition(uint32_t x, uint32_t y) {
+
+	}
+
+	void SetSprite(std::shared_ptr<Sprite> sprite) {
+		this->sprite = sprite;
+	}
 };
 
 

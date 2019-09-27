@@ -2,42 +2,59 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <Box2D/Box2D.h>
 
-struct Point {
-	double x;
-	double y;
+struct Position {
+	float x;
+	float y;
+
+	Position(float _x, float _y) {
+		x = _x;
+		y = _y;
+	}
 };
 
 class Transform
 {
 	
 	glm::mat4 model;
-
+	//b2BodyDef body;
+	//b2Body* groundBody;
 public:
-	Point position;
-	Transform(glm::mat4 matrix) {
-		model = matrix;
-		position.x = 0;
-		position.y = 0;
+
+	Transform(b2World* world = nullptr) {
+		model = glm::mat4(1.0f);
+
+	/*	if (world != nullptr) {
+			body.type = b2_dynamicBody;
+			body.position.Set(0.0f, 0.0f);
+			body.angle = 0;
+
+			groundBody = world->CreateBody(&body);
+		}*/
 	}
 
-	void Translate(glm::vec3 vec) {
-		model = glm::translate(model, vec);
-		position.x = vec.x;
-		position.y = vec.y;
+	void Translate(float x, float y) {
+		model = glm::translate(model, glm::vec3(x, y, 0.0f));
+		//body.position.Set(x, y);
 	}
 
-	void Scale(glm::vec3 vec) {
-		model = glm::scale(model, vec);
+	void Scale(float x, float y) {
+		model = glm::scale(model, glm::vec3(x, y, 0.0f));
 	}
 
-	void Rotate(glm::vec3 vec, float angle) {
-		model = glm::rotate(model, angle, vec);
+	void Rotate(float x, float y, float angle) {
+		model = glm::rotate(model, angle, glm::vec3(x, y, 0.0f));
 	}
 
 	glm::mat4 GetModelMatrix() {
 		return model;
 	}
 
+	//Position GetPosition() {
+		//Position pos(body.position.x, body.position.y);
+
+		//return pos;
+	//}
 };
 

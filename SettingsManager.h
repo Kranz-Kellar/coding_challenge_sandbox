@@ -11,6 +11,8 @@ struct WindowSettings {
 
 
 
+
+
 class SettingsManager
 {
 public:

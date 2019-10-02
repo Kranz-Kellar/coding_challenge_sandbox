@@ -48,7 +48,7 @@ int main() {
 	Window* window = new Window(camera, 800, 600, "Boxel");
 
 	window->subscribeOnEventType(EV_KEYBOARD);
-  //window->subscribeOnEventType(EV_MOUSE);
+    //window->subscribeOnEventType(EV_MOUSE);
 	window->SetCursor(false);
 
 	InputManager* inputManager = new InputManager();
@@ -80,6 +80,7 @@ int main() {
 	std::vector<Block*> testBlocks;
 	std::shared_ptr<Sprite> sprite = resManager->GenerateSpriteFromTextureWithShader("Sprite", "BaseTexture", "BaseShader");
 	
+	BlockManager::Initialize();
 
 	for (unsigned int i = 0; i < 64; i++) {
 		Transform transform(nullptr);
@@ -90,6 +91,10 @@ int main() {
 
 	Chunk* testChunk = new Chunk(testBlocks);
 
+
+
+	ChunkManager manager;
+	_Chunk chunk = manager.GenerateChunk();
 
 #ifdef _DEBUG
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -124,8 +129,8 @@ int main() {
 	delete chunkRenderer;
 
 
-	ChunkManager manager;
-	manager.GenerateChunk();
+	
+	
 
 
 	return EXIT_SUCCESS;

@@ -15,13 +15,12 @@ class ChunkManager
 		_Chunk chunk (MAX_CHUNK_SIZE, std::vector<Block*>(MAX_CHUNK_SIZE));
 		for (uint32_t x = 0; x < MAX_CHUNK_SIZE; x++) {
 			for (uint32_t y = 0; y < MAX_CHUNK_SIZE; y++) {
-				if (x > 32) {
+				if (x > MAX_CHUNK_SIZE / 2) {
 					//Клонирование объекта, а не создание нового
 					chunk[x][y] = BlockManager::CloneBlockOfType(B_DIRT);
-					
 				}
-				else { 
-					chunk[x][y] = BlockManager::CloneBlockOfType(B_EMPTY); 
+				else {
+					chunk[x][y] = BlockManager::CloneBlockOfType(B_EMPTY);
 				}
 			}
 		}
@@ -33,26 +32,33 @@ public:
 
 
 	void GenerateChunksFromMap(BlockType map[MAX_MAP_WIDTH][MAX_MAP_HEIGHT]) {
+
+#ifdef _DEBUG
 		for (uint32_t x = 0; x < MAX_MAP_WIDTH; x++) {
 			for (uint32_t y = 0; y < MAX_MAP_HEIGHT; y++) {
 				
 			}
 		}
+#endif
+
 	}
 
-	_Chunk GenerateChunk(algorithmFunc chunkGenerationAlgorithm = nullptr) {
-		if (chunkGenerationAlgorithm != nullptr) {
+	_Chunk GenerateChunk(/*algorithmFunc chunkGenerationAlgorithm = nullptr*/) {
+		/*if (chunkGenerationAlgorithm != nullptr) {
 			_Chunk chunk = chunkGenerationAlgorithm();
 			return chunk;
-		}
+		}*/
 		_Chunk chunk = GenerateBaseChunk();
 
+#ifdef _DEBUG
 		for (uint32_t x = 0; x < MAX_CHUNK_SIZE; x++) {
 			for (uint32_t y = 0; y < MAX_CHUNK_SIZE ; y++) {
 				std::cout << chunk[x][y];
 			}
 			std::cout << std::endl;
 		}
+#endif
+
 		return chunk;
 	}
 };

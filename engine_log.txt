@@ -1,1 +1,1 @@
-[INFO]::DEBUG_MOD_ACTIVE
+[ERROR]::That type of block does't exist

@@ -3,7 +3,7 @@
 #include "Block.h"
 #include <vector>
 
-#define MAX_CHUNK_SIZE 64
+#define MAX_CHUNK_SIZE 10
 
 class Chunk
 {

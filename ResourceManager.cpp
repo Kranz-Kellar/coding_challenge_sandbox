@@ -110,3 +110,9 @@ void ResourceManager::ReleaseResources()
 	texturesMap.clear();
 	spritesMap.clear();
 }
+
+void ResourceManager::Destroy()
+{
+	Logger::Log("Shutdown resource manager", LOG_DEBUG);
+	ReleaseResources();
+}

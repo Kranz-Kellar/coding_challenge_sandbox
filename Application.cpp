@@ -23,8 +23,8 @@ void Application::Init()
 
 void Application::Shutdown()
 {
-	window->Shutdown();
-	resourceManager->ReleaseResources();
+	//window->Shutdown();
+	//resourceManager->ReleaseResources();
 
 	delete camera;
 	delete window;

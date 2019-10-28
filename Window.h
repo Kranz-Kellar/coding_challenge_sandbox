@@ -4,10 +4,17 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include "Logger.h"
 #include "Camera.h"
 #include "System.h"
 #include "events/KeyboardEvent.h"
 #include "events/MouseEvent.h"
+
+struct WindowAttributes {
+	const char* title;
+	GLuint width;
+	GLuint height;
+};
 
 class Window : public System
 {
@@ -15,16 +22,24 @@ class Window : public System
 	GLFWwindow* windowPtr;
 	GLFWcursor* cursorPtr;
 	const char* title;
+	WindowAttributes attributes;
+	Camera* camera;
 	
 
 	void Init();
+	void SubscribeOnEvents();
+	void InitGLFW();
+	void CreateWindow();
+	void LoadGLEW();
+	void SetGenericGLFWCallbackForInputManager();
+	void CreateAndSetStandartCursor();
+	void Shutdown();
 public:
-	Camera* camera;
-	GLint width, height;
+	
 	Window(Camera* camera, int width, int height, const char* title);
 	~Window();
 
-	void Shutdown();
+	void Destroy();
 	void Update();
 	void SwapBuffers();
 	void SetCursor(bool value);
@@ -82,6 +97,7 @@ public:
 		camera->ProcessMouseMovement(event->mouseState.xpos, event->mouseState.ypos);
 	}
 
+	
 
 };
 

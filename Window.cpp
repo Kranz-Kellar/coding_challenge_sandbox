@@ -5,10 +5,10 @@
 
 Window::Window(Camera* camera, int width, int height, const char* title)
 {
+	this->attributes.title = title;
+	this->attributes.width = width;
+	this->attributes.height = height;
 	this->camera = camera;
-	this->width = width;
-	this->height = height;
-	this->title = title;
 	this->windowShouldClose = false;
 
 	Init();
@@ -22,26 +22,46 @@ Window::~Window()
 
 void Window::Init()
 {
+	InitGLFW();
+
+	CreateWindow();
+
+	glfwMakeContextCurrent(this->windowPtr);
+
+	LoadGLEW();
+
+	glViewport(0, 0, this->attributes.width, this->attributes.height);
+
+	SetGenericGLFWCallbackForInputManager();
+
+	CreateAndSetStandartCursor();
+
+	SubscribeOnEvents();
+
+	SetCursor(false);
+}
+
+void Window::InitGLFW() {
 	if (!glfwInit()) {
-		std::cout << "GLFW INIT ERROR" << std::endl;
+		Logger::Log("GLFW init error", LOG_ERROR);
 		return;
 	}
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
 
-	this->windowPtr = glfwCreateWindow(this->width, this->height, this->title, NULL, NULL);
+void Window::CreateWindow() {
+	this->windowPtr = glfwCreateWindow(this->attributes.width, this->attributes.height, this->attributes.title, NULL, NULL);
 	if (this->windowPtr == nullptr) {
-		std::cout << "WINDOW CREATE ERROR" << std::endl;
-		//Log error here
-
+		Logger::Log("glfwCreateWindow error", LOG_ERROR);
 		Shutdown();
 		return;
 	}
-	
-	glfwMakeContextCurrent(this->windowPtr);
+}
 
+void Window::LoadGLEW() {
 	//Load glew here
 	glewExperimental = GL_TRUE;
 	if (!glewInit() == GLEW_OK) {
@@ -50,10 +70,9 @@ void Window::Init()
 		Shutdown();
 		return;
 	}
+}
 
-	glViewport(0, 0, this->width, this->height);
-
-	//Немного магии
+void Window::SetGenericGLFWCallbackForInputManager() {
 #define genericCallback(functionName)\
 	[](GLFWwindow* window, const auto... args) {\
 		const auto ptr = static_cast<InputManager*>(glfwGetWindowUserPointer(window));\
@@ -63,9 +82,16 @@ void Window::Init()
 
 	glfwSetKeyCallback(this->windowPtr, genericCallback(keyPressed));
 	glfwSetCursorPosCallback(this->windowPtr, genericCallback(mouseCallback));
+}
 
+void Window::CreateAndSetStandartCursor() {
 	cursorPtr = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
 	glfwSetCursor(this->windowPtr, cursorPtr);
+}
+
+void Window::SubscribeOnEvents() {
+	subscribeOnEventType(EV_KEYBOARD);
+	subscribeOnEventType(EV_MOUSE);
 }
 
 void Window::Update()
@@ -101,5 +127,10 @@ void Window::Shutdown()
 	glfwDestroyCursor(cursorPtr);
 	glfwDestroyWindow(this->windowPtr);
 	glfwTerminate();
+}
+
+void Window::Destroy() {
+	Logger::Log("Shutdown window system", LOG_DEBUG);
+	Shutdown();
 }
 

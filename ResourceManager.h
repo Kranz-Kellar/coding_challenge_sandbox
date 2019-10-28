@@ -4,6 +4,8 @@
 #include <map>
 #include <SOIL/SOIL.h>
 
+#include "System.h"
+
 #include "Logger.h"
 #include "Shader.h"
 #include "Texture2D.h"
@@ -15,7 +17,7 @@
 
 */
 
-class ResourceManager
+class ResourceManager : public System
 {
 	 std::vector<std::shared_ptr<Shader>> shaders;
 	 std::vector<std::shared_ptr<Texture2D>> textures;
@@ -26,6 +28,8 @@ class ResourceManager
 	 std::map<std::string, std::shared_ptr<Sprite>> spritesMap;
 	
 	 std::string loadText(std::string path);
+
+	 void ReleaseResources();
 public:
 
 	 
@@ -35,6 +39,8 @@ public:
 	 std::shared_ptr<Shader> LoadShaderWithName(std::string name, std::string pathToVector, std::string pathToFragment);
 	 std::shared_ptr<Sprite> GenerateSpriteFromTextureWithShader(std::string spriteName, std::string textureName, std::string shaderName);
 
-	 void ReleaseResources();
+	
+
+	 void Destroy();
 };
 

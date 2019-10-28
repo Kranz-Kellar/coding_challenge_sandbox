@@ -26,10 +26,8 @@ public:
 		return false;
 	}
 
-	virtual void  processEvent(Event* event) {
-		std::cout << "EVENT OF TYPE " << event->type << " HAS BEEN ARRIVED!" << std::endl;
-	}
+	virtual void  processEvent(Event* event) {}
 
-
+	virtual void Destroy() {}
 };
 

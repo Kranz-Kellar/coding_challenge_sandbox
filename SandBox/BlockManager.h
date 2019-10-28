@@ -2,27 +2,33 @@
 
 #include <map>
 #include "Block.h"
+#include "../Logger.h"
+
+
+typedef std::map<BlockType, Block*> BlocksMap;
 
 class BlockManager
 {
-	static void AddBlockOfType(BlockType type) {
+	void AddBlockOfType(BlockType type) {
 		blocksMap[type] = new Block(type);
 	}
 
-public:
-
 	//Содержит по одному блоку одного типа
 	//С помощью этого map'а копируются остальные блоки
-	static std::map<BlockType, Block*> blocksMap;
+	 BlocksMap blocksMap;
 
-	static void Initialize() {
+public:
+
+	
+
+	void Initialize() {
 		BlockManager::AddBlockOfType(B_DIRT);
 		BlockManager::AddBlockOfType(B_EMPTY);
 	}
 
-	static Block* CloneBlockOfType(BlockType type) {
+	Block* CloneBlockOfType(BlockType type) {
 
-		if (blocksMap[type] != nullptr) {
+		if (blocksMap[type] == nullptr) {
 			Logger::Log("That type of block does't exist", LogStatus::LOG_ERROR);
 			return nullptr;
 		}
@@ -32,9 +38,5 @@ public:
 
 		return block;
 	}
-
-
-
 };
 
-std::map<BlockType, Block*> BlockManager::blocksMap;

@@ -1,8 +1,11 @@
 ﻿#pragma once
+#pragma warning(push)
+#pragma warning( disable : 4244 ) 
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "System.h"
 
 enum CameraMovement {
 	FORWARD,
@@ -19,8 +22,22 @@ const double SPEED = 2.5f;
 const double SENSITIVITY = 0.1f;
 const double ZOOM = 45.0f;
 
-class Camera
+class Camera : public System
 {
+
+	void updateCameraVectors()
+	{
+
+		glm::vec3 front;
+		front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+		front.y = sin(glm::radians(Pitch));
+		front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+		Front = glm::normalize(front);
+
+		Right = glm::normalize(glm::cross(Front, WorldUp));
+		Up = glm::normalize(glm::cross(Right, Front));
+	}
+
 public:
 	// Camera Attributes
 	glm::vec3 Position;
@@ -130,19 +147,6 @@ public:
 		if (Zoom >= 45.0f)
 			Zoom = 45.0f;
 	}
-
-private:
-
-	void updateCameraVectors()
-	{
-
-		glm::vec3 front;
-		front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-		front.y = sin(glm::radians(Pitch));
-		front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-		Front = glm::normalize(front);
-
-		Right = glm::normalize(glm::cross(Front, WorldUp)); 
-		Up = glm::normalize(glm::cross(Right, Front));
-	}
 };
+
+#pragma warning(pop)

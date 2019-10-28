@@ -4,6 +4,8 @@
 typedef std::vector<std::vector<Block*>> _Chunk;
 typedef std::vector<std::vector<Block*>>(*algorithmFunc)(void);
 
+#define MAX_MAP_WIDTH 512
+#define MAX_MAP_HEIGHT 512
 
 //TODO: Придумать оптимальный способ хранения дохреналиона блоков
 //Либо представлять каждый блок, как BlockType и рендерить с помощью паттерна Prototype,
@@ -17,10 +19,10 @@ class ChunkManager
 			for (uint32_t y = 0; y < MAX_CHUNK_SIZE; y++) {
 				if (x > MAX_CHUNK_SIZE / 2) {
 					//Клонирование объекта, а не создание нового
-					chunk[x][y] = BlockManager::CloneBlockOfType(B_DIRT);
+					//chunk[x][y] = BlockManager::CloneBlockOfType(B_DIRT);
 				}
 				else {
-					chunk[x][y] = BlockManager::CloneBlockOfType(B_EMPTY);
+					//chunk[x][y] = BlockManager::CloneBlockOfType(B_EMPTY);
 				}
 			}
 		}
@@ -53,7 +55,7 @@ public:
 #ifdef _DEBUG
 		for (uint32_t x = 0; x < MAX_CHUNK_SIZE; x++) {
 			for (uint32_t y = 0; y < MAX_CHUNK_SIZE ; y++) {
-				std::cout << chunk[x][y];
+				std::cout << chunk[x][y]->type;
 			}
 			std::cout << std::endl;
 		}

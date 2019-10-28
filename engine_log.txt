@@ -1,1 +1,1 @@
-[ERROR]::That type of block does't exist
+[ERROR]::SOIL::Load path /Debug/res/textures/test.pngfailed

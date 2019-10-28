@@ -1,12 +1,15 @@
 #pragma once
 
 #include <GL/glew.h>
-#include "Shader.h"
 #include <glm/glm.hpp>
+
+#include "System.h"
+
+#include "Shader.h"
 #include "Texture2D.h"
 #include "Camera.h"
 
-class Renderer
+class Renderer : public System
 {
 
 	GLuint VAO, VBO, IBO;

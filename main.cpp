@@ -96,5 +96,11 @@ int main() {
 
 	engine.TerminateSystems();
 
+#ifdef _DEBUG
+
+	getchar();
+
+#endif
+
 	return EXIT_SUCCESS;
 }

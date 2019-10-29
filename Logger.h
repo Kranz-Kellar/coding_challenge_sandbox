@@ -10,7 +10,6 @@ enum LogStatus {
 	LOG_ERROR
 };
 
-
 class Logger
 {
 	static std::string LogStatusToString(LogStatus status) {
@@ -30,7 +29,7 @@ class Logger
 
 	static void WriteMsgToFile(std::string path, std::string msg) {
 		std::ofstream logFile;
-		logFile.open(path);
+		logFile.open(path, std::ios_base::app);
 		logFile << msg;
 		logFile.close();
 	}
@@ -41,7 +40,7 @@ class Logger
 public:
 
 	static void Log(std::string msg, LogStatus status) {
-		std::string fullMsg = "[" + LogStatusToString(status) + "]::" + msg;
+		std::string fullMsg = "[" + LogStatusToString(status) + "]::" + msg + "\n";
 
 		WriteMsgToFile(logFileName, fullMsg);
 

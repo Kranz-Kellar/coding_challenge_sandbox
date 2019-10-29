@@ -48,6 +48,7 @@ void EngineSystems::UpdateSystems()
 void EngineSystems::registerSystemsInEventManager()
 {
 	for (auto system : systems) {
+		Logger::Log("Register " + system.first + " system", LOG_DEBUG);
 		EventManager::AddSystem(system.second);
 	}
 }
@@ -56,6 +57,7 @@ void EngineSystems::TerminateSystems()
 {
 	
 	for (auto system : systems) {
+		Logger::Log("Terminating " + system.first + " system", LOG_DEBUG);
 		system.second->Destroy();
 	}
 }

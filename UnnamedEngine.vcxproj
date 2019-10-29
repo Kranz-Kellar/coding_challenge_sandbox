@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EngineSystems.cpp" />
+    <ClCompile Include="Enity.cpp" />
     <ClCompile Include="mem\Allocator.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="mem\PoolAllocator.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="ResourcePack.cpp" />
     <ClCompile Include="SettingsManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="System.cpp" />
@@ -152,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSystems.h" />
+    <ClInclude Include="Enity.h" />
     <ClInclude Include="mem\Allocator.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="mem\PoolAllocator.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ResourcePack.h" />
     <ClInclude Include="SettingsManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="System.h" />

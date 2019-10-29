@@ -37,12 +37,14 @@ public:
 			return;
 		}
 
-		xml_node windowSettingsNode = settingsDocument.child("WindowSettings");
-
-
+		xml_node windowSettingsNode = settingsDocument.child("Settings").child("WindowSettings");
 		windowSettings.title = windowSettingsNode.child("Title").attribute("Value").as_string();
 		windowSettings.width = windowSettingsNode.child("Width").attribute("Value").as_uint();
 		windowSettings.height = windowSettingsNode.child("Height").attribute("Value").as_uint();
+
+		xml_node resourceManagerNode = settingsDocument.child("Settings").child("ResourceManagerSettings");
+		resManagerSettings.pathToResources = resourceManagerNode.child("PathToResources").attribute("Value").as_string();
+
 	}
 };
 

@@ -9,8 +9,6 @@ EngineSystems::EngineSystems()
 
 void EngineSystems::InitSystems()
 {
-	//TODO: Loading config file here
-
 	settingsManager.LoadSettings();
 
 #ifdef _DEBUG

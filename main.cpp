@@ -53,13 +53,11 @@ int main() {
 			"BaseTexture",
 			"BaseShader");
 	
-	//BlockManager::Initialize();
 
 	for (unsigned int i = 0; i < 64; i++) {
 		Transform transform(nullptr);
 		transform.Translate(static_cast<GLfloat>(i), static_cast<GLfloat>(i));
 		testBlocks.push_back(new Block(B_DIRT, transform, sprite));
-
 	}
 
 	Chunk* testChunk = new Chunk(testBlocks);

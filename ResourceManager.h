@@ -13,10 +13,6 @@
 
 
 
-/*
-
-*/
-
 class ResourceManager : public System
 {
 	 std::vector<std::shared_ptr<Shader>> shaders;
@@ -28,6 +24,8 @@ class ResourceManager : public System
 	 std::map<std::string, std::shared_ptr<Sprite>> spritesMap;
 	
 	 std::string loadText(std::string path);
+
+	 //resPack loadResourcePackage(std::string path);
 
 	 void ReleaseResources();
 public:

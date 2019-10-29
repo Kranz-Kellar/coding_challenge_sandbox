@@ -26,7 +26,7 @@
 
 class EngineSystems
 {
-
+	SettingsManager settingsManager;
 	std::map<std::string, System*> systems;
 	void registerSystemsInEventManager();
 public:

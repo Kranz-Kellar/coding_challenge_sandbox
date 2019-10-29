@@ -10,13 +10,20 @@ EngineSystems::EngineSystems()
 void EngineSystems::InitSystems()
 {
 	//TODO: Loading config file here
+
+	settingsManager.LoadSettings();
+
 #ifdef _DEBUG
 	Logger::SetConsoleLog(true);
 	Logger::Log("DEBUG MOD ACTIVE", LOG_INFO);
 #endif
 
 	Camera* mainCamera = new Camera();
-	Window* window = new Window(mainCamera, 800, 600, "Title");
+	Window* window = new Window(mainCamera,
+		settingsManager.windowSettings.width,
+		settingsManager.windowSettings.height,
+		settingsManager.windowSettings.title);
+
 	InputManager* inputManager = new InputManager();
 	ResourceManager* resourceManager = new ResourceManager();
 	Renderer* renderer = new Renderer(mainCamera);

@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ecs\Component.cpp" />
     <ClCompile Include="EngineSystems.cpp" />
     <ClCompile Include="ecs\Enity.cpp" />
     <ClCompile Include="ecs\EntityManager.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="EngineSystems.h" />
     <ClInclude Include="ecs\Enity.h" />
     <ClInclude Include="ecs\EntityManager.h" />

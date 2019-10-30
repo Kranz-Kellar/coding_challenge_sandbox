@@ -125,9 +125,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="utils\UniqueIdTest.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\printing.hpp" />
     <ClInclude Include="include\testing.hpp" />
     <ClInclude Include="utils\UniqueIdTest.h" />

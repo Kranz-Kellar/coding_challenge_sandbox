@@ -3,9 +3,6 @@
 #include "..//Logger.h"
 
 
-// Линейный аллокатор памяти
-
-
 
 struct MemBuffer {
 	uint8_t* memory;
@@ -55,6 +52,14 @@ public:
 		}
 
 		buffer->curentOffset -= size;
+	}
+
+	size_t getAmountOfFreeSpace() {
+		return buffer->maxSize - buffer->curentOffset;
+	}
+
+	size_t getAmountOfMaxSpace() {
+		return buffer->maxSize;
 	}
 };
 

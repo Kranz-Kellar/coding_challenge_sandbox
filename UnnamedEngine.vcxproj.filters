@@ -78,10 +78,16 @@
     <ClCompile Include="EngineSystems.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Enity.cpp">
+    <ClCompile Include="ResourcePack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourcePack.cpp">
+    <ClCompile Include="ecs\Enity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\EntityManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="util\UniqueId.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,10 +152,16 @@
     <ClInclude Include="EngineSystems.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enity.h">
+    <ClInclude Include="ResourcePack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ResourcePack.h">
+    <ClInclude Include="ecs\Enity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\EntityManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\UniqueId.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

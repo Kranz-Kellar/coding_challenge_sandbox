@@ -7,7 +7,7 @@ class UniqueId
 	static uint32_t nextId;
 
 	static uint32_t GetId() {
-		return nextId++;
+		return ++nextId;
 	}
 
 public:
@@ -26,3 +26,4 @@ public:
 	}
 };
 
+unsigned int UniqueId::nextId = 0;

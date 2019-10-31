@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <memory>
 #include "..//Logger.h"
 
 
@@ -54,12 +55,40 @@ public:
 		buffer->curentOffset -= size;
 	}
 
+	void getNewMemory(size_t size) {
+		if (buffer->memory != nullptr) {
+			Logger::Log("Allocator::Trying to get more memory without freeing the previous chunk of memory", LOG_ERROR);
+			return;
+		}
+		void* memPtr = malloc(size);
+		if (memPtr == nullptr) {
+			Logger::Log("Allocator::ctor is failed. Malloc returns nullptr", LOG_ERROR);
+			return;
+		}
+
+		buffer = new MemBuffer();
+		buffer->memory = static_cast<uint8_t*>(memPtr);
+		buffer->maxSize = size;
+		buffer->curentOffset = 0;
+	}
+
+	void freeAllMemory() {
+		std::free(buffer->memory);
+		buffer->memory = nullptr;
+		buffer->curentOffset = 0;
+		buffer->maxSize = 0;
+	}
+
 	size_t getAmountOfFreeSpace() {
 		return buffer->maxSize - buffer->curentOffset;
 	}
 
 	size_t getAmountOfMaxSpace() {
 		return buffer->maxSize;
+	}
+
+	~Allocator() {
+		freeAllMemory();
 	}
 };
 

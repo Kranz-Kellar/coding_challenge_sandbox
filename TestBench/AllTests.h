@@ -4,7 +4,7 @@
 #include "testing.hpp"
 
 const char* Logger::logFileName = "log.txt";
-bool Logger::consoleLog = true;
+bool Logger::consoleLog = false;
 unsigned int UniqueId::nextId = 0;
 
 struct UniqueIdTest : TestCase
@@ -32,14 +32,49 @@ public:
 
 struct AllocatorTest : TestCase
 {
-	void allocatorCtorTest() {
-		Allocator alloc(1024);
+	void CtorTest() {
+		Allocator alloc(512);
+		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 512);
+	}
+
+	void AllocTest() {
+		Allocator alloc(512);
+		alloc.allocate(256);
+
+		ASSERT_EQUAL(alloc.getAmountOfFreeSpace(), 256);
+	}
+
+	void FreeTest() {
+		Allocator alloc(512);
+		alloc.allocate(256);
+		alloc.free(256);
+		ASSERT_EQUAL(alloc.getAmountOfFreeSpace(), 512);
+	}
+
+	void GetNewMemoryTest() {
+		Allocator alloc(512);
+		alloc.getNewMemory(1024);
+		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 512);
+
+		alloc.freeAllMemory();
+		alloc.getNewMemory(1024);
 		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 1024);
 	}
+
+	void FreeAllMemoryTest() {
+		Allocator alloc(512);
+		alloc.freeAllMemory();
+		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 0);
+	}
+
 public:
 
 	void run() override {
-		allocatorCtorTest();
+		CtorTest();
+		AllocTest();
+		FreeTest();
+		GetNewMemoryTest();
+		FreeAllMemoryTest();
 	}
 };
 

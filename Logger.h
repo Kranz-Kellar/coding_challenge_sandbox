@@ -37,6 +37,8 @@ class Logger
 	static const char* logFileName;
 	static bool consoleLog;
 
+	Logger();
+
 public:
 
 	static void Log(std::string msg, LogStatus status) {
@@ -52,7 +54,8 @@ public:
 	static void SetConsoleLog(bool value) {
 		consoleLog = value;
 	}
-};
 
-const char* Logger::logFileName = "engine_log.txt";
-bool Logger::consoleLog = false;
+	static void SetLogFileName(const char* fileName) {
+		logFileName = fileName;
+	}
+};

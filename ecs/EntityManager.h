@@ -1,5 +1,5 @@
 #pragma once
-#include "Enity.h"
+#include "Entity.h"
 #include "..//util/UniqueId.h"
 
 class EntityManager

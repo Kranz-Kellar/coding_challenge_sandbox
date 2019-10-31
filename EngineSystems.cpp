@@ -10,7 +10,7 @@ EngineSystems::EngineSystems()
 void EngineSystems::InitSystems()
 {
 	settingsManager.LoadSettings();
-
+	Logger::SetLogFileName(settingsManager.loggerSettings.logFileName.c_str());
 #ifdef _DEBUG
 	Logger::SetConsoleLog(true);
 	Logger::Log("DEBUG MOD ACTIVE", LOG_INFO);

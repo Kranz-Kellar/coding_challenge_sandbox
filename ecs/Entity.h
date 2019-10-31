@@ -8,7 +8,7 @@
 typedef std::vector<bool> ComponentsMask;
 typedef std::vector<Component> Components;
 
-class Enity
+class Entity
 {
 	UniqueId id;
 	ComponentsMask componentsMask;

@@ -1,7 +1,11 @@
 #pragma once
 #include "..//..//mem/Allocator.h"
 #include <util/UniqueId.h>
-#include <testing.hpp>
+#include "testing.hpp"
+
+const char* Logger::logFileName = "log.txt";
+bool Logger::consoleLog = true;
+unsigned int UniqueId::nextId = 0;
 
 struct UniqueIdTest : TestCase
 {
@@ -29,9 +33,8 @@ public:
 struct AllocatorTest : TestCase
 {
 	void allocatorCtorTest() {
-		Allocator alloc(520);
-
-		ASSERT_EQUAL(sizeof(alloc.getAmountOfMaxSpace()), 520);
+		Allocator alloc(1024);
+		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 1024);
 	}
 public:
 

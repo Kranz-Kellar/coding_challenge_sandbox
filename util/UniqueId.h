@@ -26,4 +26,3 @@ public:
 	}
 };
 
-unsigned int UniqueId::nextId = 0;

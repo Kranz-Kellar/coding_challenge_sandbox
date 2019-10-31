@@ -220,7 +220,7 @@ void print_help(const char *command_name) {
   std::cout << "  -n, --no-catch:  Do not catch C++ exceptions (useful for debugging)" << std::endl;
 }
 
-int main(int argc, char **argv) {
+int __main(int argc, char **argv) {
   bool failfast = false;
   bool nocatch = false;
 

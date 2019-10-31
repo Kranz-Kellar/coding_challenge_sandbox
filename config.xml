@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
-<WindowSettings>
+
+<Settings>
+  <WindowSettings>
     <Width Value="1200"/>
     <Height Value="720"/>
-    <Title Value="Title"/>  
-</WindowSettings>
+    <Title Value="Title"/>
+  </WindowSettings>
+
+  <LogSettings>
+    <LogFileName Value="log.txt" />
+  </LogSettings>
+    
+</Settings>

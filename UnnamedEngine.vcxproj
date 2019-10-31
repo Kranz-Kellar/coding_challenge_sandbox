@@ -130,8 +130,9 @@
   <ItemGroup>
     <ClCompile Include="ecs\Component.cpp" />
     <ClCompile Include="EngineSystems.cpp" />
-    <ClCompile Include="ecs\Enity.cpp" />
+    <ClCompile Include="ecs\Entity.cpp" />
     <ClCompile Include="ecs\EntityManager.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="mem\Allocator.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -141,7 +142,6 @@
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="events\KeyboardEvent.cpp" />
-    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="events\MouseEvent.cpp" />
     <ClCompile Include="mem\PoolAllocator.cpp" />
@@ -158,7 +158,7 @@
   <ItemGroup>
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="EngineSystems.h" />
-    <ClInclude Include="ecs\Enity.h" />
+    <ClInclude Include="ecs\Entity.h" />
     <ClInclude Include="ecs\EntityManager.h" />
     <ClInclude Include="mem\Allocator.h" />
     <ClInclude Include="Application.h" />
@@ -181,6 +181,9 @@
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="util\UniqueId.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="config.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

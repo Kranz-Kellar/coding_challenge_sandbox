@@ -1,7 +1,8 @@
 #pragma once
-#include "..//..//mem/Allocator.h"
+#include "..//..//mem/Allocator.cpp"
 #include <util/UniqueId.h>
 #include "testing.hpp"
+
 
 const char* Logger::logFileName = "log.txt";
 bool Logger::consoleLog = false;
@@ -34,37 +35,55 @@ struct AllocatorTest : TestCase
 {
 	void CtorTest() {
 		Allocator alloc(512);
-		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 512);
+		ASSERT_EQUAL(alloc.getAmountOfMaxMemory(), 512);
 	}
 
 	void AllocTest() {
 		Allocator alloc(512);
 		alloc.allocate(256);
 
-		ASSERT_EQUAL(alloc.getAmountOfFreeSpace(), 256);
+		ASSERT_EQUAL(alloc.getAmountOfFreeMemory(), 256);
 	}
 
 	void FreeTest() {
 		Allocator alloc(512);
 		alloc.allocate(256);
 		alloc.free(256);
-		ASSERT_EQUAL(alloc.getAmountOfFreeSpace(), 512);
+		ASSERT_EQUAL(alloc.getAmountOfFreeMemory(), 512);
 	}
 
 	void GetNewMemoryTest() {
 		Allocator alloc(512);
 		alloc.getNewMemory(1024);
-		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 512);
+		ASSERT_EQUAL(alloc.getAmountOfMaxMemory(), 512);
 
 		alloc.freeAllMemory();
 		alloc.getNewMemory(1024);
-		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 1024);
+		ASSERT_EQUAL(alloc.getAmountOfMaxMemory(), 1024);
 	}
 
 	void FreeAllMemoryTest() {
 		Allocator alloc(512);
 		alloc.freeAllMemory();
-		ASSERT_EQUAL(alloc.getAmountOfMaxSpace(), 0);
+		ASSERT_EQUAL(alloc.getAmountOfMaxMemory(), 0);
+	}
+
+	void GetAmountOfFreeMemoryTest() {
+		Allocator alloc(512);
+		alloc.allocate(256);
+		ASSERT_EQUAL(alloc.getAmountOfFreeMemory(), 256);
+	}
+
+	void GetAmountOfMaxMemoryTest() {
+		Allocator alloc(512);
+		alloc.allocate(256);
+		ASSERT_EQUAL(alloc.getAmountOfMaxMemory(), 512);
+	}
+
+	void GetAmountOfUsedMemoryTest() {
+		Allocator alloc(512);
+		alloc.allocate(256);
+		ASSERT_EQUAL(alloc.getAmountOfUsedMemory(), 256);
 	}
 
 public:
@@ -77,7 +96,6 @@ public:
 		FreeAllMemoryTest();
 	}
 };
-
 
 REGISTER_TEST(UniqueIdTest, "Unique Id testing");
 REGISTER_TEST(AllocatorTest, "Test of base allocator");

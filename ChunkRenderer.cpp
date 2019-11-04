@@ -19,16 +19,24 @@ void ChunkRenderer::Init()
 
 void ChunkRenderer::DrawChunk(Chunk* chunk)
 {
-	//Перебираем весь чанк, состоящий из блоков
-	//Берём информацию из блока о его местоположении и шейдере
-	//Отправляем базовому рендереру на отрисовку эту информацию
 
-	//TODO: Отрисовка чанка путём загрузки всей информации за один раз, а не вызовами на каждый блок
+
+	//TODO: Render bunch of object in one draw call
 
 	for (unsigned int i = 0; i < MAX_CHUNK_SIZE; i++) {
 		Block* block = chunk->blocks[i];
 		if (block == nullptr) {
 			Logger::Log("Block was null", LOG_ERROR);
+			continue;
+		}
+
+		if (block->sprite->texture == nullptr) {
+			Logger::Log("Texture not found!", LOG_ERROR);
+			continue;
+		}
+
+		if (block->sprite->shader == nullptr) {
+			Logger::Log("Shader not found", LOG_ERROR);
 			continue;
 		}
 

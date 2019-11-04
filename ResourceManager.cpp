@@ -3,6 +3,10 @@
 #include <iostream>
 #include <fstream>
 
+void ResourceManager::Init() {
+
+}
+
 std::string ResourceManager::loadText(std::string path)
 {
 	
@@ -57,12 +61,11 @@ std::shared_ptr<Shader> ResourceManager::LoadShaderWithName(std::string name, st
 
 std::shared_ptr<Texture2D> ResourceManager::LoadTexture(std::string path)
 {
-	int width, height;
-	unsigned char* image = SOIL_load_image(path.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-	if (image != nullptr) {
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>(width, height, image);
+	Image image = imageLoader.LoadImage(path);
+	if (image.data != nullptr) {
+		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>(image.width, image.height, image.data);
 		textures.push_back(texture);
-		SOIL_free_image_data(image);
+		SOIL_free_image_data(image.data);
 		return texture;
 	}
 	else {
@@ -74,13 +77,11 @@ std::shared_ptr<Texture2D> ResourceManager::LoadTexture(std::string path)
 
 std::shared_ptr<Texture2D> ResourceManager::LoadTextureWithName(std::string name, std::string path)
 {
-	int width, height;
-
-	unsigned char* image = SOIL_load_image(path.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-	if (image != nullptr) {
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>(width, height, image);
+	Image image = imageLoader.LoadImage(path);
+	if (image.data != nullptr) {
+		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>(image.width, image.height, image.data);
 		texturesMap[name] = texture;
-		SOIL_free_image_data(image);
+		SOIL_free_image_data(image.data);
 		return texture;
 	}
 	else {

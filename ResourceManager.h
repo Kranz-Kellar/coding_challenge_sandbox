@@ -11,34 +11,38 @@
 #include "Texture2D.h"
 #include "Sandbox/Sprite.h"
 
+#include "ImageLoader.h"
+
 
 
 class ResourceManager : public System
 {
-	 std::vector<std::shared_ptr<Shader>> shaders;
-	 std::vector<std::shared_ptr<Texture2D>> textures;
-	 std::vector<std::shared_ptr<Sprite>> sprites;
+	ImageLoader imageLoader;
 
-	 std::map<std::string, std::shared_ptr<Shader>> shadersMap;
-	 std::map<std::string, std::shared_ptr<Texture2D>> texturesMap;
-	 std::map<std::string, std::shared_ptr<Sprite>> spritesMap;
-	
-	 std::string loadText(std::string path);
+	std::vector<std::shared_ptr<Shader>> shaders;
+	std::vector<std::shared_ptr<Texture2D>> textures;
+	std::vector<std::shared_ptr<Sprite>> sprites;
 
-	 //resPack loadResourcePackage(std::string path);
+	std::map<std::string, std::shared_ptr<Shader>> shadersMap;
+	std::map<std::string, std::shared_ptr<Texture2D>> texturesMap;
+	std::map<std::string, std::shared_ptr<Sprite>> spritesMap;
 
-	 void ReleaseResources();
+	std::string loadText(std::string path);
+
+	//resPack loadResourcePackage(std::string path);
+
+	void ReleaseResources();
 public:
+	void Init();
 
-	 
-	 std::shared_ptr<Shader> LoadShader(std::string pathToVector, std::string pathToFragment);
-	 std::shared_ptr<Texture2D> LoadTexture(std::string path);
-	 std::shared_ptr<Texture2D> LoadTextureWithName(std::string name, std::string path);
-	 std::shared_ptr<Shader> LoadShaderWithName(std::string name, std::string pathToVector, std::string pathToFragment);
-	 std::shared_ptr<Sprite> GenerateSpriteFromTextureWithShader(std::string spriteName, std::string textureName, std::string shaderName);
+	std::shared_ptr<Shader> LoadShader(std::string pathToVector, std::string pathToFragment);
+	std::shared_ptr<Texture2D> LoadTexture(std::string path);
+	std::shared_ptr<Texture2D> LoadTextureWithName(std::string name, std::string path);
+	std::shared_ptr<Shader> LoadShaderWithName(std::string name, std::string pathToVector, std::string pathToFragment);
+	std::shared_ptr<Sprite> GenerateSpriteFromTextureWithShader(std::string spriteName, std::string textureName, std::string shaderName);
 
-	
 
-	 void Destroy();
+
+	void Destroy();
 };
 

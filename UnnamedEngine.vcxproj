@@ -132,6 +132,7 @@
     <ClCompile Include="EngineSystems.cpp" />
     <ClCompile Include="ecs\Entity.cpp" />
     <ClCompile Include="ecs\EntityManager.cpp" />
+    <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="mem\MemoryPool.cpp" />
     <ClCompile Include="mem\Allocator.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="EngineSystems.h" />
     <ClInclude Include="ecs\Entity.h" />
     <ClInclude Include="ecs\EntityManager.h" />
+    <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="mem\MemoryPool.h" />
     <ClInclude Include="mem\Allocator.h" />
     <ClInclude Include="Application.h" />

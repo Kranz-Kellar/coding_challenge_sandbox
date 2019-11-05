@@ -50,53 +50,11 @@ public:
 		return this->windowPtr;
 	}
 
-	void processEvent(Event* event) {
-		switch (event->type) {
-		case EV_KEYBOARD:
-			std::cout << "WINDOW::KEYBOARD_EVENT" << std::endl;
-			processKeyboardEvent(static_cast<KeyboardEvent*>(event));
-			break;
-		case EV_MOUSE:
-			std::cout << "WINDOW::MOUSE_EVENT" << std::endl;
-			processMouseEvent(static_cast<MouseEvent*>(event));
-			break;
-		}
-	}
+	void processEvent(Event* event);
 	
-	void processKeyboardEvent(KeyboardEvent* event) {
-		if (event == nullptr) {
-			return;
-		}
+	void processKeyboardEvent(KeyboardEvent* event);
 
-		//Позже пристроим сюда вычисление нормальной дельты.
-#define DELTA_TIME 0.05f
-
-		if (event->keyboardState.key == GLFW_KEY_W) {
-			camera->ProcessKeyboard(UP, DELTA_TIME);
-		}
-		if (event->keyboardState.key == GLFW_KEY_A) {
-			camera->ProcessKeyboard(LEFT, DELTA_TIME);
-		}
-		if (event->keyboardState.key == GLFW_KEY_S) {
-			camera->ProcessKeyboard(DOWN, DELTA_TIME);
-		}
-		if (event->keyboardState.key == GLFW_KEY_D) {
-			camera->ProcessKeyboard(RIGHT, DELTA_TIME);
-		}
-
-		if (event->keyboardState.key == GLFW_KEY_ESCAPE) {
-			this->windowShouldClose = true;
-		}
-	}
-
-	void processMouseEvent(MouseEvent* event) {
-
-		if (event == nullptr)
-			return;
-
-		camera->ProcessMouseMovement(event->mouseState.xpos, event->mouseState.ypos);
-	}
-
+	void processMouseEvent(MouseEvent* event);
 	
 
 };

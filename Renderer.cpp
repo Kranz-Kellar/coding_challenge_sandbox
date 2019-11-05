@@ -11,19 +11,10 @@ void Renderer::Init()
 		Just for test
 	*/
 	GLfloat vertices[] = {
-     
-	
 	RIGHT_TOP,  1.0f, 1.0f,
-
-	 
 	LEFT_TOP,  1.0f, 0.0f,
-
-	 
 	LEFT_BOTTOM,  0.0f, 0.0f,
-
-	
 	RIGHT_BOTTOM,  0.0f, 1.0f
-
 	};
 
 	GLuint indices[] = {

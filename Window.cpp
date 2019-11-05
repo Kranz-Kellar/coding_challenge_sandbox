@@ -1,7 +1,7 @@
 #include "Window.h"
 #include "InputManager.h"
 
-
+using namespace Erbium;
 
 Window::Window(Camera* camera, int width, int height, const char* title)
 {
@@ -38,7 +38,7 @@ void Window::Init()
 
 	SubscribeOnEvents();
 
-	SetCursor(false);
+	SetCursorDisplay(false);
 }
 
 void Window::InitGLFW() {
@@ -111,15 +111,62 @@ void Window::SwapBuffers()
 	glfwSwapBuffers(this->windowPtr);
 }
 
-void Window::SetCursor(bool value)
+void Window::SetCursorDisplay(bool value)
 {
 	if (value == true) {
-		glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 	else {
 		glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 
+}
+
+void Window::processEvent(Event* event) {
+	switch (event->type) {
+	case EV_KEYBOARD:
+		std::cout << "WINDOW::KEYBOARD_EVENT" << std::endl;
+		processKeyboardEvent(static_cast<KeyboardEvent*>(event));
+		break;
+	case EV_MOUSE:
+		std::cout << "WINDOW::MOUSE_EVENT" << std::endl;
+		processMouseEvent(static_cast<MouseEvent*>(event));
+		break;
+	}
+}
+
+void Window::processKeyboardEvent(KeyboardEvent* event) {
+	if (event == nullptr) {
+		return;
+	}
+
+	//Позже пристроим сюда вычисление нормальной дельты.
+#define DELTA_TIME 0.05f
+
+	if (event->keyboardState.key == GLFW_KEY_W) {
+		camera->ProcessKeyboard(UP, DELTA_TIME);
+	}
+	if (event->keyboardState.key == GLFW_KEY_A) {
+		camera->ProcessKeyboard(LEFT, DELTA_TIME);
+	}
+	if (event->keyboardState.key == GLFW_KEY_S) {
+		camera->ProcessKeyboard(DOWN, DELTA_TIME);
+	}
+	if (event->keyboardState.key == GLFW_KEY_D) {
+		camera->ProcessKeyboard(RIGHT, DELTA_TIME);
+	}
+
+	if (event->keyboardState.key == GLFW_KEY_ESCAPE) {
+		this->windowShouldClose = true;
+	}
+}
+
+void Window::processMouseEvent(MouseEvent* event) {
+
+	if (event == nullptr)
+		return;
+
+	//camera->ProcessMouseMovement(event->mouseState.xpos, event->mouseState.ypos);
 }
 
 void Window::Shutdown()

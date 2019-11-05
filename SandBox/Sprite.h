@@ -3,7 +3,8 @@
 #include "..//Shader.h"
 #include "..//Texture2D.h"
 
-//Вся информация для рендерера
+using namespace Erbium;
+
 class Sprite
 {
 public:
@@ -18,4 +19,6 @@ public:
 	void* operator new(size_t size) = delete;
 
 };
+
+
 

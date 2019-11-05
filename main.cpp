@@ -13,86 +13,97 @@
 
 #include "EngineSystems.h"
 
-
-#include "SandBox/Chunk.h"
-#include "SandBox/MapGenerator.h"
-#include "ChunkRenderer.h"
-
 #include "Logger.h"
 
 #include "mem/Allocator.h"
 
+#include <imgui/imgui.h>
+#include "gui/imgui/imgui_impl_glfw.h"
+#include "gui/imgui/imgui_impl_opengl3.h"
+
+
+#include "TestField.h"
+
+#include "AsyncFileIO.h"
+
 using namespace std;
+using namespace Erbium;
 
 
 int main() {
-
-
 	EngineSystems engine;
 	engine.InitSystems();
 
-	//b2World* world = new b2World(b2Vec2(0.0f, -10.0f));
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui_ImplGlfw_InitForOpenGL(engine.window->GetWindowPointer(), true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui::StyleColorsDark();
 
-	srand(static_cast<unsigned>(time(0)));
+	ChunkRenderer* chunkRenderer = new ChunkRenderer(dynamic_cast<IRenderer*>(engine.GetSystem("renderer")));
 
+	std::shared_ptr<Shader> shader = engine.resourceManager->LoadShaderWithName("BaseShader","res/shaders/base_vector_shader.vs","res/shaders/base_fragment_shader.fs");
 
-	ChunkRenderer* chunkRenderer = new ChunkRenderer(static_cast<Renderer*>(engine.GetSystem("renderer")));
+	std::shared_ptr<Texture2D> texture = engine.resourceManager->LoadTextureWithName("BaseTexture","res/textures/test.png");
 
-	std::shared_ptr<Shader> shader = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		LoadShaderWithName("BaseShader",
-			"res/shaders/base_vector_shader.vs",
-		"res/shaders/base_fragment_shader.fs");
+	std::shared_ptr<Sprite> sprite = engine.resourceManager->GenerateSpriteFromTextureWithShader("Sprite", "BaseTexture", "BaseShader");
 
-	std::shared_ptr<Texture2D> texture = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		LoadTextureWithName("BaseTexture",
-			"res/textures/test.png");
-
-	std::vector<Block*> testBlocks;
-	std::shared_ptr<Sprite> sprite = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		GenerateSpriteFromTextureWithShader("Sprite",
-			"BaseTexture",
-			"BaseShader");
-	
-
-	for (unsigned int i = 0; i < 64; i++) {
+	std::vector<std::shared_ptr<Block>> testBlocks;
+	for (unsigned int i = 0; i < 1; i++) {
 		Transform transform(nullptr);
-		transform.Translate(static_cast<GLfloat>(i), static_cast<GLfloat>(i));
-		testBlocks.push_back(new Block(B_DIRT, transform, sprite));
+		transform.Translate(0.0f, 0.0f, 10.0f);
+		testBlocks.push_back(std::make_shared<Block>(B_DIRT, transform, sprite));
 	}
 
 	Chunk* testChunk = new Chunk(testBlocks);
 
+	OpenGLDrawData* drawData = new OpenGLDrawData();
+	drawData->modelMatrix = glm::mat4(1.0f);
+	drawData->shader = shader;
+	drawData->texture = texture;
+	drawData->typeOfDraw = GL_STATIC_DRAW;
 
 
-	//ChunkManager manager;
-	//_Chunk chunk = manager.GenerateChunk();
+	while (!dynamic_cast<Window*>(engine.GetSystem("window"))->windowShouldClose) {
 
-#ifdef _DEBUG
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-#endif
-
-	double lastTime = glfwGetTime();
-	double currentTime = 0.0f;
-	double elapsedTime;
-	while (!static_cast<Window*>(engine.GetSystem("window"))->windowShouldClose) {
-
-		currentTime = glfwGetTime();
-		elapsedTime = currentTime - lastTime;
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
 		EventManager::ProcessEvents();
-		static_cast<Window*>(engine.GetSystem("window"))->Update();
+		dynamic_cast<Window*>(engine.GetSystem("window"))->Update();
 
-		chunkRenderer->DrawChunk(testChunk);
+		float x = 0.0f;
+		float y = 0.0f;
+		float z = 0.0f;
+		glm::translate(drawData->modelMatrix, glm::vec3(x, y, z));
+		dynamic_cast<IRenderer*>(engine.GetSystem("renderer"))->Draw2DObject(drawData);
 
-		static_cast<Window*>(engine.GetSystem("window"))->SwapBuffers();
 
-		lastTime = currentTime;
+		
+
+		ImGui::Begin("Demo window");
+		ImGui::SliderFloat("X", &x, -10.0f, 10.0f);
+		ImGui::SliderFloat("Y", &y, -10.0f, 10.0f);
+		ImGui::SliderFloat("Z", &z, -10.0f, 10.0f);
+		ImGui::TextUnformatted(std::to_string(x).c_str());
+		
+		ImGui::End();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		dynamic_cast<Window*>(engine.GetSystem("window"))->SwapBuffers();
 	}
-
-
-	delete chunkRenderer;
+	
+	//testField->Terminate();
 
 	engine.TerminateSystems();
+
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 
 #ifdef _DEBUG
 

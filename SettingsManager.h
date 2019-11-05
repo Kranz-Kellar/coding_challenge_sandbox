@@ -8,53 +8,57 @@
 
 using namespace pugi;
 
-struct WindowSettings {
-	unsigned int width;
-	unsigned int height;
-	const char* title;
-};
+namespace Erbium {
 
-struct ResourceManagerSettings {
-	std::string pathToResources;
-};
+	struct WindowSettings {
+		unsigned int width;
+		unsigned int height;
+		const char* title;
+	};
 
-struct LoggerSettings {
-	std::string logFileName;
-};
+	struct ResourceManagerSettings {
+		std::string pathToResources;
+	};
+
+	struct LoggerSettings {
+		std::string logFileName;
+	};
 
 
-class SettingsManager
-{
-	const char* pathToConfigFile = "config.xml";
-	pugi::xml_document settingsDocument;
-	pugi::xml_parse_result settingsTree;
+	//TODO: Default settings
+	class SettingsManager
+	{
+		const char* pathToConfigFile = "config.xml";
+		pugi::xml_document settingsDocument;
+		pugi::xml_parse_result settingsTree;
 
-public:
+	public:
 
-	WindowSettings windowSettings;
-	ResourceManagerSettings resManagerSettings;
-	LoggerSettings loggerSettings;
+		WindowSettings windowSettings;
+		ResourceManagerSettings resManagerSettings;
+		LoggerSettings loggerSettings;
 
-	void LoadSettings() {
-		settingsTree = settingsDocument.load_file(pathToConfigFile);
-		if (!settingsTree) {
-			Logger::Log("Config file not found", LOG_ERROR);
-			return;
+		void LoadSettings() {
+			settingsTree = settingsDocument.load_file(pathToConfigFile);
+			if (!settingsTree) {
+				Logger::Log("Config file not found", LOG_ERROR);
+				return;
+			}
+
+			xml_node settingsNode = settingsDocument.child("Settings");
+			//TODO: Разбить на методы
+			xml_node windowSettingsNode = settingsNode.child("WindowSettings");
+			windowSettings.title = windowSettingsNode.child("Title").attribute("Value").as_string();
+			windowSettings.width = windowSettingsNode.child("Width").attribute("Value").as_uint();
+			windowSettings.height = windowSettingsNode.child("Height").attribute("Value").as_uint();
+
+			xml_node resourceManagerNode = settingsNode.child("ResourceManagerSettings");
+			resManagerSettings.pathToResources = resourceManagerNode.child("PathToResources").attribute("Value").as_string();
+
+			xml_node loggerNode = settingsNode.child("LoggerSettings");
+			loggerSettings.logFileName = loggerNode.child("LogFileName").attribute("Value").as_string();
+
 		}
+	};
 
-		xml_node settingsNode = settingsDocument.child("Settings");
-
-		xml_node windowSettingsNode = settingsNode.child("WindowSettings");
-		windowSettings.title = windowSettingsNode.child("Title").attribute("Value").as_string();
-		windowSettings.width = windowSettingsNode.child("Width").attribute("Value").as_uint();
-		windowSettings.height = windowSettingsNode.child("Height").attribute("Value").as_uint();
-
-		xml_node resourceManagerNode = settingsNode.child("ResourceManagerSettings");
-		resManagerSettings.pathToResources = resourceManagerNode.child("PathToResources").attribute("Value").as_string();
-
-		xml_node loggerNode = settingsNode.child("LoggerSettings");
-		loggerSettings.logFileName = loggerNode.child("LogFileName").attribute("Value").as_string();
-
-	}
-};
-
+}

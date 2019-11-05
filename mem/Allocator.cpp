@@ -1,5 +1,6 @@
 #include "Allocator.h"
 
+using namespace Erbium;
 
 Allocator::Allocator(size_t size) : buffer() {
 	void* ptr = malloc(size);

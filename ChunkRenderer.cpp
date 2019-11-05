@@ -1,7 +1,9 @@
 #include "ChunkRenderer.h"
 #include "Logger.h"
 
-ChunkRenderer::ChunkRenderer(Renderer* renderer)
+using namespace Erbium;
+
+ChunkRenderer::ChunkRenderer(IRenderer* renderer)
 {
 	this->baseRenderer = renderer;
 	Init();
@@ -19,20 +21,34 @@ void ChunkRenderer::Init()
 
 void ChunkRenderer::DrawChunk(Chunk* chunk)
 {
-	//Перебираем весь чанк, состоящий из блоков
-	//Берём информацию из блока о его местоположении и шейдере
-	//Отправляем базовому рендереру на отрисовку эту информацию
 
-	//TODO: Отрисовка чанка путём загрузки всей информации за один раз, а не вызовами на каждый блок
 
-	for (unsigned int i = 0; i < MAX_CHUNK_SIZE; i++) {
-		Block* block = chunk->blocks[i];
+	//TODO: Render bunch of object in one draw call
+	//Test bench
+	for (unsigned int i = 0; i < chunk->blocks.size(); i++) {
+		std::shared_ptr<Block> block = chunk->blocks[i];
 		if (block == nullptr) {
 			Logger::Log("Block was null", LOG_ERROR);
 			continue;
 		}
 
-		block->sprite->texture->Bind();
-	    baseRenderer->drawObject(block->sprite->shader, block->transform.GetModelMatrix());
+		if (block->sprite->texture == nullptr) {
+			Logger::Log("Texture not found!", LOG_ERROR);
+			continue;
+		}
+
+		if (block->sprite->shader == nullptr) {
+			Logger::Log("Shader not found", LOG_ERROR);
+			continue;
+		}
+		
+		OpenGLDrawData* drawData = new OpenGLDrawData();
+		drawData->modelMatrix = block->transform.GetModelMatrix();
+		drawData->shader = block->sprite->shader;
+		drawData->texture = block->sprite->texture;
+		drawData->typeOfDraw = GL_STATIC_DRAW;
+
+
+	    baseRenderer->Draw2DObject(dynamic_cast<IDrawData*>(drawData));
 	}
 }

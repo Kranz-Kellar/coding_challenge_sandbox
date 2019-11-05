@@ -5,29 +5,31 @@
 #include <iostream>
 #include "events/Event.h"
 
+namespace Erbium {
 
-class System
-{
-protected:
-	std::vector<EventType> subscribedEvents;
-public:
+	class Module
+	{
+	protected:
+		std::vector<EventType> subscribedEvents;
+	public:
 
-	void subscribeOnEventType(EventType type) {
-		if (!isSubscribedOnEventType(type)) {
-			subscribedEvents.push_back(type);
+		void subscribeOnEventType(EventType type) {
+			if (!isSubscribedOnEventType(type)) {
+				subscribedEvents.push_back(type);
+			}
 		}
-	}
 
-	bool isSubscribedOnEventType(EventType type) {
-		std::vector<EventType>::iterator it = std::find(subscribedEvents.begin(), subscribedEvents.end(), type);
-		if (it != subscribedEvents.end()) {
-			return true;
+		bool isSubscribedOnEventType(EventType type) {
+			std::vector<EventType>::iterator it = std::find(subscribedEvents.begin(), subscribedEvents.end(), type);
+			if (it != subscribedEvents.end()) {
+				return true;
+			}
+			return false;
 		}
-		return false;
-	}
 
-	virtual void  processEvent(Event* event) {}
+		virtual void  processEvent(Event* event) {}
 
-	virtual void Destroy() {}
-};
+		virtual void Destroy() {}
+	};
 
+}

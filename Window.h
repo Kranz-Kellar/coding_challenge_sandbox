@@ -10,94 +10,55 @@
 #include "events/KeyboardEvent.h"
 #include "events/MouseEvent.h"
 
-struct WindowAttributes {
-	const char* title;
-	GLuint width;
-	GLuint height;
-};
+namespace Erbium {
 
-class Window : public System
-{
+	struct WindowAttributes {
+		const char* title;
+		GLuint width;
+		GLuint height;
+	};
 
-	GLFWwindow* windowPtr;
-	GLFWcursor* cursorPtr;
-	const char* title;
-	WindowAttributes attributes;
-	Camera* camera;
-	
+	class Window : public Module
+	{
 
-	void Init();
-	void SubscribeOnEvents();
-	void InitGLFW();
-	void CreateWindow();
-	void LoadGLEW();
-	void SetGenericGLFWCallbackForInputManager();
-	void CreateAndSetStandartCursor();
-	void Shutdown();
-public:
-	
-	Window(Camera* camera, int width, int height, const char* title);
-	~Window();
+		GLFWwindow* windowPtr;
+		GLFWcursor* cursorPtr;
+		const char* title;
+		WindowAttributes attributes;
+		Camera* camera;
 
-	void Destroy();
-	void Update();
-	void SwapBuffers();
-	void SetCursor(bool value);
 
-	bool windowShouldClose;
+		void Init();
+		void SubscribeOnEvents();
+		void InitGLFW();
+		void CreateWindow();
+		void LoadGLEW();
+		void SetGenericGLFWCallbackForInputManager();
+		void CreateAndSetStandartCursor();
+		void Shutdown();
+	public:
 
-	GLFWwindow* GetWindowPointer() {
-		return this->windowPtr;
-	}
+		Window(Camera* camera, int width, int height, const char* title);
+		~Window();
 
-	void processEvent(Event* event) {
-		switch (event->type) {
-		case EV_KEYBOARD:
-			std::cout << "WINDOW::KEYBOARD_EVENT" << std::endl;
-			processKeyboardEvent(static_cast<KeyboardEvent*>(event));
-			break;
-		case EV_MOUSE:
-			std::cout << "WINDOW::MOUSE_EVENT" << std::endl;
-			processMouseEvent(static_cast<MouseEvent*>(event));
-			break;
-		}
-	}
-	
-	void processKeyboardEvent(KeyboardEvent* event) {
-		if (event == nullptr) {
-			return;
+		void Destroy();
+		void Update();
+		void SwapBuffers();
+		void SetCursorDisplay(bool value);
+
+		bool windowShouldClose;
+
+		GLFWwindow* GetWindowPointer() {
+			return this->windowPtr;
 		}
 
-		//Позже пристроим сюда вычисление нормальной дельты.
-#define DELTA_TIME 0.05f
+		void processEvent(Event* event);
 
-		if (event->keyboardState.key == GLFW_KEY_W) {
-			camera->ProcessKeyboard(UP, DELTA_TIME);
-		}
-		if (event->keyboardState.key == GLFW_KEY_A) {
-			camera->ProcessKeyboard(LEFT, DELTA_TIME);
-		}
-		if (event->keyboardState.key == GLFW_KEY_S) {
-			camera->ProcessKeyboard(DOWN, DELTA_TIME);
-		}
-		if (event->keyboardState.key == GLFW_KEY_D) {
-			camera->ProcessKeyboard(RIGHT, DELTA_TIME);
-		}
+		void processKeyboardEvent(KeyboardEvent* event);
 
-		if (event->keyboardState.key == GLFW_KEY_ESCAPE) {
-			this->windowShouldClose = true;
-		}
-	}
+		void processMouseEvent(MouseEvent* event);
 
-	void processMouseEvent(MouseEvent* event) {
 
-		if (event == nullptr)
-			return;
+	};
 
-		camera->ProcessMouseMovement(event->mouseState.xpos, event->mouseState.ypos);
-	}
-
-	
-
-};
-
+}

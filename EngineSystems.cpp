@@ -1,6 +1,6 @@
 #include "EngineSystems.h"
 
-
+using namespace Erbium;
 
 EngineSystems::EngineSystems()
 {
@@ -21,10 +21,13 @@ void EngineSystems::InitSystems()
 		settingsManager.windowSettings.width,
 		settingsManager.windowSettings.height,
 		settingsManager.windowSettings.title);
+	window->SetCursorDisplay(true);
 
 	InputManager* inputManager = new InputManager();
 	ResourceManager* resourceManager = new ResourceManager();
-	Renderer* renderer = new Renderer(mainCamera);
+	resourceManager->Init();
+	IRenderer* renderer = new OpenGLRenderer(mainCamera);
+	
 
 	glfwSetWindowUserPointer(window->GetWindowPointer(), inputManager);
 
@@ -34,10 +37,16 @@ void EngineSystems::InitSystems()
 	systems["resourceManager"] = resourceManager;
 	systems["renderer"] = renderer;
 
+	this->renderer = renderer;
+	this->window = window;
+	this->inputManager = inputManager;
+	this->resourceManager = resourceManager;
+	this->camera = camera;
+
 	registerSystemsInEventManager();
 }
 
-System* EngineSystems::GetSystem(std::string&& name)
+Module* EngineSystems::GetSystem(std::string&& name)
 {
 	if (systems[name] != nullptr) {
 		return systems[name];

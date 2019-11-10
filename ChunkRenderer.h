@@ -1,18 +1,18 @@
 #pragma once
 #include <GL/glew.h>
-#include "Renderer.h"
+#include "renderer/IRenderer.h"
 #include "SandBox/Chunk.h"
 
 
 class ChunkRenderer
 {
-	Renderer* baseRenderer;
+	IRenderer* baseRenderer;
 	void Init();
 public:
 	
 
 
-	ChunkRenderer(Renderer* renderer);
+	ChunkRenderer(IRenderer* renderer);
 	~ChunkRenderer();
 
 	

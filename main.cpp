@@ -36,7 +36,7 @@ int main() {
 	srand(static_cast<unsigned>(time(0)));
 
 
-	ChunkRenderer* chunkRenderer = new ChunkRenderer(static_cast<Renderer*>(engine.GetSystem("renderer")));
+	ChunkRenderer* chunkRenderer = new ChunkRenderer(static_cast<IRenderer*>(engine.GetSystem("renderer")));
 
 	std::shared_ptr<Shader> shader = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
 		LoadShaderWithName("BaseShader",

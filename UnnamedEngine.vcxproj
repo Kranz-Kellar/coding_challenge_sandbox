@@ -147,7 +147,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="events\MouseEvent.cpp" />
     <ClCompile Include="mem\PoolAllocator.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="renderer\OpenGLRenderer.cpp" />
+    <ClCompile Include="renderer\IRenderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ResourcePack.cpp" />
     <ClCompile Include="SettingsManager.cpp" />
@@ -158,6 +159,8 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="renderer\OpenGLDrawData.h" />
+    <ClInclude Include="renderer\IDrawData.h" />
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="EngineSystems.h" />
     <ClInclude Include="ecs\Entity.h" />
@@ -176,7 +179,8 @@
     <ClInclude Include="events\MouseEvent.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="mem\PoolAllocator.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="renderer\OpenGLRenderer.h" />
+    <ClInclude Include="renderer\IRenderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ResourcePack.h" />
     <ClInclude Include="SettingsManager.h" />

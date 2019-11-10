@@ -1,7 +1,7 @@
 #include "ChunkRenderer.h"
 #include "Logger.h"
 
-ChunkRenderer::ChunkRenderer(Renderer* renderer)
+ChunkRenderer::ChunkRenderer(IRenderer* renderer)
 {
 	this->baseRenderer = renderer;
 	Init();
@@ -40,7 +40,6 @@ void ChunkRenderer::DrawChunk(Chunk* chunk)
 			continue;
 		}
 
-		block->sprite->texture->Bind();
-	    baseRenderer->drawObject(block->sprite->shader, block->transform.GetModelMatrix());
+	    baseRenderer->draw2DObject(block->sprite->shader, block->sprite->texture, block->transform.GetModelMatrix());
 	}
 }

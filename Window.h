@@ -42,7 +42,7 @@ public:
 	void Destroy();
 	void Update();
 	void SwapBuffers();
-	void SetCursor(bool value);
+	void SetCursorDisplay(bool value);
 
 	bool windowShouldClose;
 

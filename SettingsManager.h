@@ -23,6 +23,7 @@ struct LoggerSettings {
 };
 
 
+//TODO: Default settings
 class SettingsManager
 {
 	const char* pathToConfigFile = "config.xml";

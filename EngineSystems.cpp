@@ -21,6 +21,7 @@ void EngineSystems::InitSystems()
 		settingsManager.windowSettings.width,
 		settingsManager.windowSettings.height,
 		settingsManager.windowSettings.title);
+	window->SetCursorDisplay(true);
 
 	InputManager* inputManager = new InputManager();
 	ResourceManager* resourceManager = new ResourceManager();

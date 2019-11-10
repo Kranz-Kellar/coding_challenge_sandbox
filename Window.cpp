@@ -38,7 +38,7 @@ void Window::Init()
 
 	SubscribeOnEvents();
 
-	SetCursor(false);
+	SetCursorDisplay(false);
 }
 
 void Window::InitGLFW() {
@@ -111,10 +111,10 @@ void Window::SwapBuffers()
 	glfwSwapBuffers(this->windowPtr);
 }
 
-void Window::SetCursor(bool value)
+void Window::SetCursorDisplay(bool value)
 {
 	if (value == true) {
-		glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 	else {
 		glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

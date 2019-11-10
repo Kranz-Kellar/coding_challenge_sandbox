@@ -22,6 +22,10 @@
 
 #include "mem/Allocator.h"
 
+#include <imgui/imgui.h>
+#include "gui/imgui_impl_glfw.h"
+#include "gui/imgui_impl_opengl3.h"
+
 using namespace std;
 
 
@@ -62,7 +66,12 @@ int main() {
 
 	Chunk* testChunk = new Chunk(testBlocks);
 
-
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui_ImplGlfw_InitForOpenGL(static_cast<Window*>(engine.GetSystem("window"))->GetWindowPointer(), true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui::StyleColorsDark();
 
 	//ChunkManager manager;
 	//_Chunk chunk = manager.GenerateChunk();
@@ -79,10 +88,21 @@ int main() {
 		currentTime = glfwGetTime();
 		elapsedTime = currentTime - lastTime;
 
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
 		EventManager::ProcessEvents();
 		static_cast<Window*>(engine.GetSystem("window"))->Update();
 
 		chunkRenderer->DrawChunk(testChunk);
+
+		ImGui::Begin("Demo window");
+		ImGui::Button("Hello!");
+		ImGui::End();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		static_cast<Window*>(engine.GetSystem("window"))->SwapBuffers();
 
@@ -93,6 +113,10 @@ int main() {
 	delete chunkRenderer;
 
 	engine.TerminateSystems();
+
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 
 #ifdef _DEBUG
 

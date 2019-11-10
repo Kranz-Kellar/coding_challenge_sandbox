@@ -1,13 +1,9 @@
 #pragma once
 #include <string>
 #include <memory>
+#include "Image.h"
 
 
-struct Image {
-	int width;
-	int height;
-	unsigned char* data;
-};
 
 class ImageLoader
 {

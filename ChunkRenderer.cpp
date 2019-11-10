@@ -22,7 +22,7 @@ void ChunkRenderer::DrawChunk(Chunk* chunk)
 
 
 	//TODO: Render bunch of object in one draw call
-
+	//Test bench
 	for (unsigned int i = 0; i < MAX_CHUNK_SIZE; i++) {
 		Block* block = chunk->blocks[i];
 		if (block == nullptr) {
@@ -39,7 +39,14 @@ void ChunkRenderer::DrawChunk(Chunk* chunk)
 			Logger::Log("Shader not found", LOG_ERROR);
 			continue;
 		}
+		
+		OpenGLDrawData* drawData = new OpenGLDrawData();
+		drawData->modelMatrix = block->transform.GetModelMatrix();
+		drawData->shader = block->sprite->shader;
+		drawData->texture = block->sprite->texture;
+		drawData->typeOfDraw = GL_STATIC_DRAW;
 
-	    baseRenderer->draw2DObject(block->sprite->shader, block->sprite->texture, block->transform.GetModelMatrix());
+
+	    baseRenderer->Draw2DObject(dynamic_cast<IDrawData*>(drawData));
 	}
 }

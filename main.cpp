@@ -45,7 +45,7 @@ int main() {
 
 	std::shared_ptr<Texture2D> texture = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
 		LoadTextureWithName("BaseTexture",
-			"res/textures/test.png");
+			"res/textures/test.jpg");
 
 	std::vector<Block*> testBlocks;
 	std::shared_ptr<Sprite> sprite = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->

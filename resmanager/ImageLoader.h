@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-#include <SOIL/SOIL.h>
+#include <memory>
+
 
 struct Image {
 	int width;
@@ -11,8 +12,7 @@ struct Image {
 class ImageLoader
 {
 public:
-	Image LoadImage(std::string path);
-
-
+	std::shared_ptr<Image> virtual LoadImage(std::string path) = 0;
+	virtual ~ImageLoader() {};
 };
 

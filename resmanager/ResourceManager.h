@@ -4,20 +4,21 @@
 #include <map>
 #include <SOIL/SOIL.h>
 
-#include "System.h"
+#include "../System.h"
 
-#include "Logger.h"
-#include "Shader.h"
-#include "Texture2D.h"
-#include "Sandbox/Sprite.h"
+#include "../Logger.h"
+#include "../Shader.h"
+#include "../Texture2D.h"
+#include "../Sandbox/Sprite.h"
 
 #include "ImageLoader.h"
+#include "SOILImageLoader.h"
 
 
 
 class ResourceManager : public System
 {
-	ImageLoader imageLoader;
+	ImageLoader* imageLoader;
 
 	std::vector<std::shared_ptr<Shader>> shaders;
 	std::vector<std::shared_ptr<Texture2D>> textures;
@@ -35,8 +36,6 @@ class ResourceManager : public System
 public:
 	void Init();
 
-	std::shared_ptr<Shader> LoadShader(std::string pathToVector, std::string pathToFragment);
-	std::shared_ptr<Texture2D> LoadTexture(std::string path);
 	std::shared_ptr<Texture2D> LoadTextureWithName(std::string name, std::string path);
 	std::shared_ptr<Shader> LoadShaderWithName(std::string name, std::string pathToVector, std::string pathToFragment);
 	std::shared_ptr<Sprite> GenerateSpriteFromTextureWithShader(std::string spriteName, std::string textureName, std::string shaderName);

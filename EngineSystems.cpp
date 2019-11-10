@@ -24,7 +24,9 @@ void EngineSystems::InitSystems()
 
 	InputManager* inputManager = new InputManager();
 	ResourceManager* resourceManager = new ResourceManager();
-	Renderer* renderer = new Renderer(mainCamera);
+	resourceManager->Init();
+	IRenderer* renderer = new OpenGLRenderer(mainCamera);
+	
 
 	glfwSetWindowUserPointer(window->GetWindowPointer(), inputManager);
 

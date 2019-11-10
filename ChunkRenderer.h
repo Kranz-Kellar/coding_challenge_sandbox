@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include "renderer/IRenderer.h"
 #include "SandBox/Chunk.h"
+#include "renderer/OpenGLDrawData.h"
 
 
 class ChunkRenderer

@@ -23,10 +23,12 @@ class OpenGLRenderer : public IRenderer
 
 	glm::mat4 projection;
 	
-	void InitBufferOfType(GLuint buffer, GLuint type);
+	void InitStaticBuffer();
+	void InitDynamicBuffer();
+	void InitStreamBuffer();
 	void SetBufferOfType(GLuint type) const;
 public:
-	OpenGLRenderer();
+	OpenGLRenderer(Camera* camera);
 
 	void setCamera(Camera* camera);
 	void Draw2DObject(IDrawData* drawData) override;

@@ -132,7 +132,7 @@
     <ClCompile Include="EngineSystems.cpp" />
     <ClCompile Include="ecs\Entity.cpp" />
     <ClCompile Include="ecs\EntityManager.cpp" />
-    <ClCompile Include="ImageLoader.cpp" />
+    <ClCompile Include="resmanager\ImageLoader.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="mem\MemoryPool.cpp" />
     <ClCompile Include="mem\Allocator.cpp" />
@@ -149,10 +149,11 @@
     <ClCompile Include="mem\PoolAllocator.cpp" />
     <ClCompile Include="renderer\OpenGLRenderer.cpp" />
     <ClCompile Include="renderer\IRenderer.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="ResourcePack.cpp" />
+    <ClCompile Include="resmanager\ResourceManager.cpp" />
+    <ClCompile Include="resmanager\ResourcePack.cpp" />
     <ClCompile Include="SettingsManager.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="resmanager\SOILImageLoader.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="util\UniqueId.cpp" />
@@ -165,7 +166,7 @@
     <ClInclude Include="EngineSystems.h" />
     <ClInclude Include="ecs\Entity.h" />
     <ClInclude Include="ecs\EntityManager.h" />
-    <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="resmanager\ImageLoader.h" />
     <ClInclude Include="mem\MemoryPool.h" />
     <ClInclude Include="mem\Allocator.h" />
     <ClInclude Include="Application.h" />
@@ -181,10 +182,11 @@
     <ClInclude Include="mem\PoolAllocator.h" />
     <ClInclude Include="renderer\OpenGLRenderer.h" />
     <ClInclude Include="renderer\IRenderer.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="ResourcePack.h" />
+    <ClInclude Include="resmanager\ResourceManager.h" />
+    <ClInclude Include="resmanager\ResourcePack.h" />
     <ClInclude Include="SettingsManager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="resmanager\SOILImageLoader.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="util\UniqueId.h" />

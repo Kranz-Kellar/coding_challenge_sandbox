@@ -12,10 +12,11 @@
 
 #include "EventManager.h"
 #include "InputManager.h"
-#include "ResourceManager.h"
+#include "resmanager/ResourceManager.h"
 #include "SettingsManager.h"
 
-#include "Renderer.h"
+#include "renderer/IRenderer.h"
+#include "renderer/OpenGLRenderer.h"
 #include "Window.h"
 #include "Camera.h"
 

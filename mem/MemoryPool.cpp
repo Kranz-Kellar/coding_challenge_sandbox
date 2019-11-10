@@ -1,6 +1,12 @@
 #include "MemoryPool.h"
 
 template<class T>
+MemoryPool<T>::MemoryPool(uint32_t countOfMemoryChunks)
+{
+	this->countOfChunks = countOfMemoryChunks;
+}
+
+template<class T>
 inline T MemoryPool<T>::Allocate()
 {
 	return T();
@@ -15,6 +21,7 @@ void MemoryPool<T>::Free(T object)
 template<class T>
 void MemoryPool<T>::CreateNewPool()
 {
+
 }
 
 template<class T>

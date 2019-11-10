@@ -14,6 +14,8 @@ class MemoryPool
 
 public:
 
+	MemoryPool(uint32_t countOfMemoryChunks);
+
 	T Allocate();
 	void Free(T object);
 

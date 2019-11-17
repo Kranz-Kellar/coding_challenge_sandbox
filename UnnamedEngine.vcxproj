@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AsyncFileIO.cpp" />
     <ClCompile Include="ecs\Component.cpp" />
     <ClCompile Include="EngineSystems.cpp" />
     <ClCompile Include="ecs\Entity.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsyncFileIO.h" />
     <ClInclude Include="gui\imgui_impl_glfw.h" />
     <ClInclude Include="gui\imgui_impl_opengl3.h" />
     <ClInclude Include="include\glm\common.hpp" />

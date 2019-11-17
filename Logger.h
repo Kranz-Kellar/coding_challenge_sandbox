@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <chrono>
+#include <ctime>
+#include "AsyncFileIO.h"
 
 
 enum LogStatus {
@@ -28,14 +31,12 @@ class Logger
 	}
 
 	static void WriteMsgToFile(std::string path, std::string msg) {
-		std::ofstream logFile;
-		logFile.open(path, std::ios_base::app);
-		logFile << msg;
-		logFile.close();
+		asyncFileWriter.AsyncWriteToFile(path, msg);
 	}
 
 	static const char* logFileName;
 	static bool consoleLog;
+	static AsyncFileIO asyncFileWriter;
 
 	Logger();
 

@@ -26,13 +26,16 @@
 #include "gui/imgui_impl_glfw.h"
 #include "gui/imgui_impl_opengl3.h"
 
+#include "AsyncFileIO.h"
+
 using namespace std;
 using namespace Erbium;
 
 
 int main() {
 
-
+	AsyncFileIO asyncFileIO;
+	asyncFileIO.AsyncWriteToFile("text.txt", "TEST STRING");
 	EngineSystems engine;
 	engine.InitSystems();
 
@@ -41,19 +44,19 @@ int main() {
 	srand(static_cast<unsigned>(time(0)));
 
 
-	ChunkRenderer* chunkRenderer = new ChunkRenderer(static_cast<IRenderer*>(engine.GetSystem("renderer")));
+	ChunkRenderer* chunkRenderer = new ChunkRenderer(dynamic_cast<IRenderer*>(engine.GetSystem("renderer")));
 
-	std::shared_ptr<Shader> shader = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
+	std::shared_ptr<Shader> shader = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
 		LoadShaderWithName("BaseShader",
 			"res/shaders/base_vector_shader.vs",
 		"res/shaders/base_fragment_shader.fs");
 
-	std::shared_ptr<Texture2D> texture = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
+	std::shared_ptr<Texture2D> texture = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
 		LoadTextureWithName("BaseTexture",
 			"res/textures/test.jpg");
 
 	std::vector<Block*> testBlocks;
-	std::shared_ptr<Sprite> sprite = static_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
+	std::shared_ptr<Sprite> sprite = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
 		GenerateSpriteFromTextureWithShader("Sprite",
 			"BaseTexture",
 			"BaseShader");
@@ -84,7 +87,7 @@ int main() {
 	double lastTime = glfwGetTime();
 	double currentTime = 0.0f;
 	double elapsedTime;
-	while (!static_cast<Window*>(engine.GetSystem("window"))->windowShouldClose) {
+	while (!dynamic_cast<Window*>(engine.GetSystem("window"))->windowShouldClose) {
 
 		currentTime = glfwGetTime();
 		elapsedTime = currentTime - lastTime;
@@ -94,7 +97,7 @@ int main() {
 		ImGui::NewFrame();
 
 		EventManager::ProcessEvents();
-		static_cast<Window*>(engine.GetSystem("window"))->Update();
+		dynamic_cast<Window*>(engine.GetSystem("window"))->Update();
 
 		chunkRenderer->DrawChunk(testChunk);
 
@@ -105,7 +108,7 @@ int main() {
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-		static_cast<Window*>(engine.GetSystem("window"))->SwapBuffers();
+		dynamic_cast<Window*>(engine.GetSystem("window"))->SwapBuffers();
 
 		lastTime = currentTime;
 	}

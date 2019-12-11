@@ -35,7 +35,7 @@ using namespace Erbium;
 int main() {
 
 	AsyncFileIO asyncFileIO;
-	asyncFileIO.AsyncWriteToFile("text.txt", "TEST STRING");
+	asyncFileIO.WriteText("text.txt", "TEST STRING");
 	EngineSystems engine;
 	engine.InitSystems();
 
@@ -53,7 +53,7 @@ int main() {
 
 	std::shared_ptr<Texture2D> texture = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
 		LoadTextureWithName("BaseTexture",
-			"res/textures/test.jpg");
+			"res/textures/test.png");
 
 	std::vector<Block*> testBlocks;
 	std::shared_ptr<Sprite> sprite = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
@@ -115,6 +115,9 @@ int main() {
 
 
 	delete chunkRenderer;
+	for (auto block : testBlocks) {
+		delete block;
+	}
 
 	engine.TerminateSystems();
 

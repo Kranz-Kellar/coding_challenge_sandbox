@@ -24,17 +24,19 @@
 //Phys system
 //Other systems
 
+namespace Erbium {
 
-class EngineSystems
-{
-	SettingsManager settingsManager;
-	std::map<std::string, System*> systems;
-	void registerSystemsInEventManager();
-public:
-	EngineSystems();
-	void InitSystems();
-	System* GetSystem(std::string&& name);
-	void UpdateSystems();
-	void TerminateSystems();
-};
+	class EngineSystems
+	{
+		SettingsManager settingsManager;
+		std::map<std::string, Module*> systems;
+		void registerSystemsInEventManager();
+	public:
+		EngineSystems();
+		void InitSystems();
+		Module* GetSystem(std::string&& name);
+		void UpdateSystems();
+		void TerminateSystems();
+	};
 
+}

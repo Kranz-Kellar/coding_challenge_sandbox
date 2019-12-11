@@ -1,10 +1,13 @@
 #pragma once
 
-struct ResFile {
-	unsigned int magicNumber;
-};
+namespace Erbium {
 
-class ResourcePack
-{
-};
+	struct ResFile {
+		unsigned int magicNumber;
+	};
 
+	class ResourcePack
+	{
+	};
+
+}

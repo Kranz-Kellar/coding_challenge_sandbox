@@ -27,6 +27,7 @@
 #include "gui/imgui_impl_opengl3.h"
 
 using namespace std;
+using namespace Erbium;
 
 
 int main() {

@@ -10,52 +10,55 @@
 #include "events/KeyboardEvent.h"
 #include "events/MouseEvent.h"
 
-struct WindowAttributes {
-	const char* title;
-	GLuint width;
-	GLuint height;
-};
+namespace Erbium {
 
-class Window : public System
-{
+	struct WindowAttributes {
+		const char* title;
+		GLuint width;
+		GLuint height;
+	};
 
-	GLFWwindow* windowPtr;
-	GLFWcursor* cursorPtr;
-	const char* title;
-	WindowAttributes attributes;
-	Camera* camera;
-	
+	class Window : public Module
+	{
 
-	void Init();
-	void SubscribeOnEvents();
-	void InitGLFW();
-	void CreateWindow();
-	void LoadGLEW();
-	void SetGenericGLFWCallbackForInputManager();
-	void CreateAndSetStandartCursor();
-	void Shutdown();
-public:
-	
-	Window(Camera* camera, int width, int height, const char* title);
-	~Window();
+		GLFWwindow* windowPtr;
+		GLFWcursor* cursorPtr;
+		const char* title;
+		WindowAttributes attributes;
+		Camera* camera;
 
-	void Destroy();
-	void Update();
-	void SwapBuffers();
-	void SetCursorDisplay(bool value);
 
-	bool windowShouldClose;
+		void Init();
+		void SubscribeOnEvents();
+		void InitGLFW();
+		void CreateWindow();
+		void LoadGLEW();
+		void SetGenericGLFWCallbackForInputManager();
+		void CreateAndSetStandartCursor();
+		void Shutdown();
+	public:
 
-	GLFWwindow* GetWindowPointer() {
-		return this->windowPtr;
-	}
+		Window(Camera* camera, int width, int height, const char* title);
+		~Window();
 
-	void processEvent(Event* event);
-	
-	void processKeyboardEvent(KeyboardEvent* event);
+		void Destroy();
+		void Update();
+		void SwapBuffers();
+		void SetCursorDisplay(bool value);
 
-	void processMouseEvent(MouseEvent* event);
-	
+		bool windowShouldClose;
 
-};
+		GLFWwindow* GetWindowPointer() {
+			return this->windowPtr;
+		}
 
+		void processEvent(Event* event);
+
+		void processKeyboardEvent(KeyboardEvent* event);
+
+		void processMouseEvent(MouseEvent* event);
+
+
+	};
+
+}

@@ -1,5 +1,7 @@
 #include "Texture2D.h"
 
+using namespace Erbium;
+
 Texture2D::Texture2D(int width, int height, unsigned char* image)
 {
 	glGenTextures(1, &this->id);

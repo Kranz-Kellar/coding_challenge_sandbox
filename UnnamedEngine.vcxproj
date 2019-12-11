@@ -80,6 +80,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AsyncFileIO.cpp" />
     <ClCompile Include="ecs\Component.cpp" />
     <ClCompile Include="EngineSystems.cpp" />
     <ClCompile Include="ecs\Entity.cpp" />
@@ -162,10 +164,12 @@
     <ClCompile Include="resmanager\SOILImageLoader.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="util\UniqueId.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsyncFileIO.h" />
     <ClInclude Include="gui\imgui_impl_glfw.h" />
     <ClInclude Include="gui\imgui_impl_opengl3.h" />
     <ClInclude Include="include\glm\common.hpp" />
@@ -446,6 +450,7 @@
     <ClInclude Include="resmanager\SOILImageLoader.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="util\UniqueId.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

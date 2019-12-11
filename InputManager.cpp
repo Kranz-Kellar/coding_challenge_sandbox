@@ -1,5 +1,7 @@
 #include "InputManager.h"
 
+using namespace Erbium;
+
 InputManager::InputManager()
 {
 	subscribeOnEvents();

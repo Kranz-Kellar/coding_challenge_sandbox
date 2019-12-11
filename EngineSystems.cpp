@@ -1,6 +1,6 @@
 #include "EngineSystems.h"
 
-
+using namespace Erbium;
 
 EngineSystems::EngineSystems()
 {
@@ -40,7 +40,7 @@ void EngineSystems::InitSystems()
 	registerSystemsInEventManager();
 }
 
-System* EngineSystems::GetSystem(std::string&& name)
+Module* EngineSystems::GetSystem(std::string&& name)
 {
 	if (systems[name] != nullptr) {
 		return systems[name];

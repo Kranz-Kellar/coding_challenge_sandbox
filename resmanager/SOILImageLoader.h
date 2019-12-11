@@ -2,9 +2,13 @@
 #include <SOIL/SOIL.h>
 #include "../Logger.h"
 
-class SOILImageLoader : public ImageLoader {
+namespace Erbium {
 
-public:
-	SOILImageLoader() {};
-	std::shared_ptr<Image> LoadImage(std::string path) override;
-};
+	class SOILImageLoader : public ImageLoader {
+
+	public:
+		SOILImageLoader() {};
+		std::shared_ptr<Image> LoadImage(std::string path) override;
+	};
+
+}

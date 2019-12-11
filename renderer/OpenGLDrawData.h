@@ -2,9 +2,12 @@
 
 #include "IDrawData.h"
 
-struct OpenGLDrawData : IDrawData
-{
-	glm::mat4 modelMatrix;
-	GLuint typeOfDraw;
-};
+namespace Erbium {
 
+	struct OpenGLDrawData : IDrawData
+	{
+		glm::mat4 modelMatrix;
+		GLuint typeOfDraw;
+	};
+
+}

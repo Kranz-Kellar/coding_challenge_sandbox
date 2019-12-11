@@ -1,7 +1,7 @@
 #include "Window.h"
 #include "InputManager.h"
 
-
+using namespace Erbium;
 
 Window::Window(Camera* camera, int width, int height, const char* title)
 {

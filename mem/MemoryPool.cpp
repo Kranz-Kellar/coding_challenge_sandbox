@@ -1,5 +1,7 @@
 #include "MemoryPool.h"
 
+using namespace Erbium;
+
 template<class T>
 MemoryPool<T>::MemoryPool(uint32_t countOfMemoryChunks)
 {

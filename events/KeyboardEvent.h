@@ -1,28 +1,31 @@
 #pragma once
 #include "Event.h"
 
-struct GLFWkeyboardState {
-	int key;
-	int scancode;
-	int action;
-	int mode;
-};
+namespace Erbium {
 
-class KeyboardEvent : public Event
-{
+	struct GLFWkeyboardState {
+		int key;
+		int scancode;
+		int action;
+		int mode;
+	};
 
-public:
-	GLFWkeyboardState keyboardState;
+	class KeyboardEvent : public Event
+	{
+
+	public:
+		GLFWkeyboardState keyboardState;
 
 
-	KeyboardEvent(int key, int scancode, int action, int mode) {
-		keyboardState.key = key;
-		keyboardState.scancode = scancode;
-		keyboardState.action = action;
-		keyboardState.mode = mode;
+		KeyboardEvent(int key, int scancode, int action, int mode) {
+			keyboardState.key = key;
+			keyboardState.scancode = scancode;
+			keyboardState.action = action;
+			keyboardState.mode = mode;
 
-		type = EV_KEYBOARD;
-	}
+			type = EV_KEYBOARD;
+		}
 
-};
+	};
 
+}

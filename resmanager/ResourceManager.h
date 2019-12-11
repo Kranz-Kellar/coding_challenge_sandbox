@@ -14,34 +14,36 @@
 #include "ImageLoader.h"
 #include "SOILImageLoader.h"
 
+namespace Erbium {
 
 
-class ResourceManager : public System
-{
-	ImageLoader* imageLoader;
+	class ResourceManager : public Module
+	{
+		ImageLoader* imageLoader;
 
-	std::vector<std::shared_ptr<Shader>> shaders;
-	std::vector<std::shared_ptr<Texture2D>> textures;
-	std::vector<std::shared_ptr<Sprite>> sprites;
+		std::vector<std::shared_ptr<Shader>> shaders;
+		std::vector<std::shared_ptr<Texture2D>> textures;
+		std::vector<std::shared_ptr<Sprite>> sprites;
 
-	std::map<std::string, std::shared_ptr<Shader>> shadersMap;
-	std::map<std::string, std::shared_ptr<Texture2D>> texturesMap;
-	std::map<std::string, std::shared_ptr<Sprite>> spritesMap;
+		std::map<std::string, std::shared_ptr<Shader>> shadersMap;
+		std::map<std::string, std::shared_ptr<Texture2D>> texturesMap;
+		std::map<std::string, std::shared_ptr<Sprite>> spritesMap;
 
-	std::string loadText(std::string path);
+		std::string loadText(std::string path);
 
-	//resPack loadResourcePackage(std::string path);
+		//resPack loadResourcePackage(std::string path);
 
-	void ReleaseResources();
-public:
-	void Init();
+		void ReleaseResources();
+	public:
+		void Init();
 
-	std::shared_ptr<Texture2D> LoadTextureWithName(std::string name, std::string path);
-	std::shared_ptr<Shader> LoadShaderWithName(std::string name, std::string pathToVector, std::string pathToFragment);
-	std::shared_ptr<Sprite> GenerateSpriteFromTextureWithShader(std::string spriteName, std::string textureName, std::string shaderName);
+		std::shared_ptr<Texture2D> LoadTextureWithName(std::string name, std::string path);
+		std::shared_ptr<Shader> LoadShaderWithName(std::string name, std::string pathToVector, std::string pathToFragment);
+		std::shared_ptr<Sprite> GenerateSpriteFromTextureWithShader(std::string spriteName, std::string textureName, std::string shaderName);
 
 
 
-	void Destroy();
-};
+		void Destroy();
+	};
 
+}

@@ -1,6 +1,8 @@
 #include "ChunkRenderer.h"
 #include "Logger.h"
 
+using namespace Erbium;
+
 ChunkRenderer::ChunkRenderer(IRenderer* renderer)
 {
 	this->baseRenderer = renderer;

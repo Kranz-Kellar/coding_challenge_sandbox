@@ -1,6 +1,8 @@
 #include "Shader.h"
 #include "Logger.h"
 
+using namespace Erbium;
+
 #define INFO_LOG_SIZE 512
 
 
@@ -34,6 +36,7 @@ bool Shader::IsCompileSuccess(GLuint shader)
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success) {
 		glGetShaderInfoLog(shader, INFO_LOG_SIZE, NULL, infoLog);
+		//TODO: Вызывать логгер тут
 		std::cout << "ERROR::SHADER_COMPILE_FAILED::" << infoLog << std::endl;
 
 		return false;

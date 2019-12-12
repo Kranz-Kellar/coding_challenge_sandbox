@@ -1,5 +1,6 @@
 #include "OpenGLRenderer.h"
 
+using namespace Erbium;
 
 OpenGLRenderer::OpenGLRenderer(Camera* camera) : viewCamera(camera)
 {
@@ -145,9 +146,6 @@ void OpenGLRenderer::Draw2DObject(IDrawData* drawData)
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
-
-
-
 
 void OpenGLRenderer::SetBufferOfType(GLuint type) const
 {

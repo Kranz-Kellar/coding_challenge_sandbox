@@ -13,24 +13,27 @@
 #define RIGHT_TOP 0.5f, 0.5f, 0.0f
 #define LEFT_TOP  0.5f,-0.5f, 0.0f
 
-class OpenGLRenderer : public IRenderer
-{
-	Camera* viewCamera;
+namespace Erbium {
 
-	GLuint StaticDrawVAO;
-	GLuint DynamicDrawVAO;
-	GLuint StreamDrawVAO;
+	class OpenGLRenderer : public IRenderer
+	{
+		Camera* viewCamera;
 
-	glm::mat4 projection;
-	
-	void InitStaticBuffer();
-	void InitDynamicBuffer();
-	void InitStreamBuffer();
-	void SetBufferOfType(GLuint type) const;
-public:
-	OpenGLRenderer(Camera* camera);
+		GLuint StaticDrawVAO;
+		GLuint DynamicDrawVAO;
+		GLuint StreamDrawVAO;
 
-	void setCamera(Camera* camera);
-	void Draw2DObject(IDrawData* drawData) override;
-};
+		glm::mat4 projection;
 
+		void InitStaticBuffer();
+		void InitDynamicBuffer();
+		void InitStreamBuffer();
+		void SetBufferOfType(GLuint type) const;
+	public:
+		OpenGLRenderer(Camera* camera);
+
+		void setCamera(Camera* camera);
+		void Draw2DObject(IDrawData* drawData) override;
+	};
+
+}

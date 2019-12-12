@@ -7,20 +7,22 @@
 #include <vector>
 #include <bitset>
 
-typedef std::vector<bool> ComponentsMask;
-typedef std::vector<Component> Components;
+namespace Erbium {
 
-class Entity
-{
-public:
-	Entity();
-	~Entity();
-	UniqueId id;
-	ComponentsMask componentsMask;
-	Components components;
-	void* operator new(std::size_t count) = delete;
-	void* operator new[](std::size_t count) = delete;
-	void operator delete(void* ptr) = delete;
-	void operator delete[](void* ptr) = delete;
-};
+	typedef std::vector<bool> ComponentsMask;
+	typedef std::vector<Component> Components;
 
+	class Entity
+	{
+	public:
+		Entity();
+		~Entity();
+		UniqueId id;
+		ComponentsMask componentsMask;
+		Components components;
+		void* operator new(std::size_t count) = delete;
+		void* operator new[](std::size_t count) = delete;
+		void operator delete(void* ptr) = delete;
+		void operator delete[](void* ptr) = delete;
+	};
+}

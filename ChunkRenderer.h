@@ -4,20 +4,22 @@
 #include "SandBox/Chunk.h"
 #include "renderer/OpenGLDrawData.h"
 
+namespace Erbium {
 
-class ChunkRenderer
-{
-	IRenderer* baseRenderer;
-	void Init();
-public:
-	
+	class ChunkRenderer
+	{
+		IRenderer* baseRenderer;
+		void Init();
+	public:
 
 
-	ChunkRenderer(IRenderer* renderer);
-	~ChunkRenderer();
 
-	
-	void DrawChunk(Chunk* chunk);
-	
-};
+		ChunkRenderer(IRenderer* renderer);
+		~ChunkRenderer();
+
+
+		void DrawChunk(Chunk* chunk);
+
+	};
+}
 

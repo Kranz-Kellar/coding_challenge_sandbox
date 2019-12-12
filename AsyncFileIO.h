@@ -3,13 +3,19 @@
 #include <mutex>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 
-class AsyncFileIO
-{
-	std::mutex fileMutex;
-	void WriteToFile(std::string path, std::string text);
-public:
-	AsyncFileIO();
-	void AsyncWriteToFile(std::string path, std::string text);
-};
+namespace Erbium {
 
+	class AsyncFileIO
+	{
+		std::mutex fileMutex;
+
+
+		bool isFileExists(const std::string& path);
+		void WriteThread(const std::string& path, const std::string& text);
+	public:
+		void WriteText(const std::string& path, const std::string& text);
+	};
+
+}

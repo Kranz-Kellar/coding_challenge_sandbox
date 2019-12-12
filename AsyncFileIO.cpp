@@ -1,20 +1,29 @@
 #include "AsyncFileIO.h"
 
-AsyncFileIO::AsyncFileIO()
+using namespace Erbium;
+
+void AsyncFileIO::WriteText(const std::string& path, const std::string& text)
 {
+	std::thread thr(&AsyncFileIO::WriteThread, this, path, text);
+	thr.detach();
 }
 
-void AsyncFileIO::AsyncWriteToFile(std::string path, std::string text)
+bool AsyncFileIO::isFileExists(const std::string& path)
 {
-	std::thread fileWriter(&AsyncFileIO::WriteToFile, this, path, text);
-	fileWriter.detach();
+	if (FILE* file = fopen(path.c_str(), "r")) {
+		fclose(file);
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
-void AsyncFileIO::WriteToFile(std::string path, std::string text)
+void AsyncFileIO::WriteThread(const std::string& path, const std::string& text)
 {
 	std::lock_guard<std::mutex> fileGuard(fileMutex);
 
-	std::fstream file(path, std::ios::app);
+	std::ofstream file(path, std::ios::app);
 	file << text;
 	file.close();
 }

@@ -80,6 +80,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +164,7 @@
     <ClCompile Include="resmanager\SOILImageLoader.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="util\UniqueId.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -448,6 +450,7 @@
     <ClInclude Include="resmanager\SOILImageLoader.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="util\UniqueId.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

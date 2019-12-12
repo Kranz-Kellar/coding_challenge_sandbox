@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+using namespace Erbium;
+
 Entity::Entity() : id()
 {
 #ifdef _DEBUG

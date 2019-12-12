@@ -1,5 +1,7 @@
 #include "EntityManager.h"
 
+using namespace Erbium;
+
 EntityManager::EntityManager() : alloc(sizeof(Entity) * MAX_COUNT_OF_ENTITIES) {
 	
 }

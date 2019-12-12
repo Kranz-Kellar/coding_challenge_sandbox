@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "Sprite.h"
 
+using namespace Erbium;
 
 enum BlockType {
 	B_EMPTY,

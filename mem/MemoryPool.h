@@ -1,30 +1,33 @@
 #pragma once
 #include "Allocator.h"
 
-template<class T>
-class MemoryPool
-{
-	Allocator memoryAllocator;
-	size_t sizeOfChunk;
-	uint32_t countOfChunks;
-	uint32_t countOfUsedChunks;
+namespace Erbium {
 
-	T* head;
-	const T type;
+	template<class T>
+	class MemoryPool
+	{
+		Allocator memoryAllocator;
+		size_t sizeOfChunk;
+		uint32_t countOfChunks;
+		uint32_t countOfUsedChunks;
 
-public:
+		T* head;
+		const T type;
 
-	MemoryPool(uint32_t countOfMemoryChunks);
+	public:
 
-	T Allocate();
-	void Free(T object);
+		MemoryPool(uint32_t countOfMemoryChunks);
 
-	void CreateNewPool();
-	void ResetPool();
+		T Allocate();
+		void Free(T object);
 
-	size_t getSizeOfChunk();
-	uint32_t getCountOfChunk();
-	uint32_t getCountOfUsedChunks();
+		void CreateNewPool();
+		void ResetPool();
 
-};
+		size_t getSizeOfChunk();
+		uint32_t getCountOfChunk();
+		uint32_t getCountOfUsedChunks();
 
+	};
+
+}

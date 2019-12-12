@@ -1,7 +1,10 @@
 #pragma once
 
-struct Image {
-	int width;
-	int height;
-	unsigned char* data;
-};
+namespace Erbium {
+
+	struct Image {
+		int width;
+		int height;
+		unsigned char* data;
+	};
+}

@@ -2,23 +2,25 @@
 
 #include "Event.h"
 
+namespace Erbium {
 
-struct GLFWmouseState {
-	double xpos;
-	double ypos;
-};
+	struct GLFWmouseState {
+		double xpos;
+		double ypos;
+	};
 
 
-class MouseEvent : public Event
-{
-public:
-	GLFWmouseState mouseState;
+	class MouseEvent : public Event
+	{
+	public:
+		GLFWmouseState mouseState;
 
-	MouseEvent(double xpos, double ypos) {
-		mouseState.xpos = xpos;
-		mouseState.ypos = ypos;
+		MouseEvent(double xpos, double ypos) {
+			mouseState.xpos = xpos;
+			mouseState.ypos = ypos;
 
-		type = EV_MOUSE;
-	}
-};
+			type = EV_MOUSE;
+		}
+	};
 
+}

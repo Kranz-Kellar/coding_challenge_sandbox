@@ -37,6 +37,13 @@ namespace Erbium {
 		Module* GetSystem(std::string&& name);
 		void UpdateSystems();
 		void TerminateSystems();
+
+
+		IRenderer* renderer;
+		InputManager* inputManager;
+		Window* window;
+		Camera* camera;
+		ResourceManager* resourceManager;
 	};
 
 }

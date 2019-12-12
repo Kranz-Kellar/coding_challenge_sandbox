@@ -30,7 +30,7 @@ void TestField::Init()
    
 	for (unsigned int i = 0; i < 1; i++) {
 		Transform transform(nullptr);
-		transform.Translate(static_cast<GLfloat>(i), static_cast<GLfloat>(i));
+		transform.Translate(static_cast<GLfloat>(i), static_cast<GLfloat>(i), -10.0f);
 		testBlocks.push_back(std::make_shared<Block>(B_DIRT, transform, sprite));
 	}
 

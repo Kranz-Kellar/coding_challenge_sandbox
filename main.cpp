@@ -21,6 +21,7 @@
 #include "gui/imgui/imgui_impl_glfw.h"
 #include "gui/imgui/imgui_impl_opengl3.h"
 
+
 #include "TestField.h"
 
 #include "AsyncFileIO.h"
@@ -33,8 +34,8 @@ int main() {
 	EngineSystems engine;
 	engine.InitSystems();
 
-	TestField* testField = new TestField(&engine);
-	testField->Init();
+	//TestField* testField = new TestField(&engine);
+	//testField->Init();
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -43,14 +44,40 @@ int main() {
 	ImGui_ImplOpenGL3_Init("#version 330");
 	ImGui::StyleColorsDark();
 
-	double lastTime = glfwGetTime();
-	double currentTime = 0.0f;
-	double elapsedTime;
+	ChunkRenderer* chunkRenderer = new ChunkRenderer(dynamic_cast<IRenderer*>(engine.GetSystem("renderer")));
+
+	std::shared_ptr<Shader> shader = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
+		LoadShaderWithName("BaseShader",
+			"res/shaders/base_vector_shader.vs",
+			"res/shaders/base_fragment_shader.fs");
+
+
+	std::shared_ptr<Texture2D> texture = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
+		LoadTextureWithName("BaseTexture",
+			"res/textures/test.png");
+
+	std::shared_ptr<Sprite> sprite = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
+		GenerateSpriteFromTextureWithShader("Sprite",
+			"BaseTexture",
+			"BaseShader");
+
+	std::vector<std::shared_ptr<Block>> testBlocks;
+	for (unsigned int i = 0; i < 1; i++) {
+		Transform transform(nullptr);
+		transform.Translate(0.0f, 0.0f, 10.0f);
+		testBlocks.push_back(std::make_shared<Block>(B_DIRT, transform, sprite));
+	}
+
+	Chunk* testChunk = new Chunk(testBlocks);
+
+	OpenGLDrawData* drawData = new OpenGLDrawData();
+	drawData->modelMatrix = glm::mat4(1.0f);
+	drawData->shader = shader;
+	drawData->texture = texture;
+	drawData->typeOfDraw = GL_STATIC_DRAW;
+
 
 	while (!dynamic_cast<Window*>(engine.GetSystem("window"))->windowShouldClose) {
-
-		currentTime = glfwGetTime();
-		elapsedTime = currentTime - lastTime;
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -59,21 +86,30 @@ int main() {
 		EventManager::ProcessEvents();
 		dynamic_cast<Window*>(engine.GetSystem("window"))->Update();
 
-		testField->Run();
+		float x = 0.0f;
+		float y = 0.0f;
+		float z = 0.0f;
+		glm::translate(drawData->modelMatrix, glm::vec3(x, y, z));
+		dynamic_cast<IRenderer*>(engine.GetSystem("renderer"))->Draw2DObject(drawData);
+
+
+		
 
 		ImGui::Begin("Demo window");
-		ImGui::Button("Hello!");
+		ImGui::SliderFloat("X", &x, -10.0f, 10.0f);
+		ImGui::SliderFloat("Y", &y, -10.0f, 10.0f);
+		ImGui::SliderFloat("Z", &z, -10.0f, 10.0f);
+		ImGui::TextUnformatted(std::to_string(x).c_str());
+		
 		ImGui::End();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		dynamic_cast<Window*>(engine.GetSystem("window"))->SwapBuffers();
-
-		lastTime = currentTime;
 	}
 	
-	testField->Terminate();
+	//testField->Terminate();
 
 	engine.TerminateSystems();
 

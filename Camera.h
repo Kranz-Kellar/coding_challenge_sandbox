@@ -62,7 +62,7 @@ namespace Erbium {
 		//Камера постоянно будет следит за этой целью, обновляя свои координаты, когда цель будет передвигаться
 
 
-		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
+		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
 			double yaw = YAW, double pitch = PITCH)
 			: Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM), lastY(300), lastX(400)
 		{
@@ -76,7 +76,7 @@ namespace Erbium {
 		Camera(glm::vec3 position)
 			: Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM), lastY(300), lastX(400)
 		{
-			Position = glm::vec3(0.0f, 0.0f, 10.0f);
+			Position = glm::vec3(0.0f, 0.0f, 0.0f);
 			WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 			Yaw = YAW;
 			Pitch = PITCH;
@@ -110,7 +110,7 @@ namespace Erbium {
 
 		void ProcessMouseMovement(double newX, double newY, GLboolean constrainPitch = true)
 		{
-			if (lastX == newX && lastY == newY)
+			/*if (lastX == newX && lastY == newY)
 				return;
 
 			//Поменяй, если нужно будет реверснуть движение мыши
@@ -136,7 +136,7 @@ namespace Erbium {
 			}
 
 
-			updateCameraVectors();
+			updateCameraVectors();*/
 		}
 
 

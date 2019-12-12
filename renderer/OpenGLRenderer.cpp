@@ -146,8 +146,9 @@ void OpenGLRenderer::Draw2DObject(IDrawData* drawData)
 	openGLDrawData->texture->Bind();
 	SetBufferOfType(openGLDrawData->typeOfDraw);
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-	//glBindVertexArray(0);
+	glDrawArrays(GL_LINE, 0, 36);
+	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 }
 
 void OpenGLRenderer::SetBufferOfType(GLuint type) const

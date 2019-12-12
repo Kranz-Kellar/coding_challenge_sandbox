@@ -34,8 +34,8 @@ public:
 		}*/
 	}
 
-	void Translate(float x, float y) {
-		model = glm::translate(model, glm::vec3(x, y, 0.0f));
+	void Translate(float x, float y, float z) {
+		model = glm::translate(model, glm::vec3(x, y, z));
 		//body.position.Set(x, y);
 	}
 

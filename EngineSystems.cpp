@@ -37,6 +37,12 @@ void EngineSystems::InitSystems()
 	systems["resourceManager"] = resourceManager;
 	systems["renderer"] = renderer;
 
+	this->renderer = renderer;
+	this->window = window;
+	this->inputManager = inputManager;
+	this->resourceManager = resourceManager;
+	this->camera = camera;
+
 	registerSystemsInEventManager();
 }
 

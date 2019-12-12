@@ -34,32 +34,20 @@ int main() {
 	EngineSystems engine;
 	engine.InitSystems();
 
-	//TestField* testField = new TestField(&engine);
-	//testField->Init();
-
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
-	ImGui_ImplGlfw_InitForOpenGL(static_cast<Window*>(engine.GetSystem("window"))->GetWindowPointer(), true);
+	ImGui_ImplGlfw_InitForOpenGL(engine.window->GetWindowPointer(), true);
 	ImGui_ImplOpenGL3_Init("#version 330");
 	ImGui::StyleColorsDark();
 
 	ChunkRenderer* chunkRenderer = new ChunkRenderer(dynamic_cast<IRenderer*>(engine.GetSystem("renderer")));
 
-	std::shared_ptr<Shader> shader = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		LoadShaderWithName("BaseShader",
-			"res/shaders/base_vector_shader.vs",
-			"res/shaders/base_fragment_shader.fs");
+	std::shared_ptr<Shader> shader = engine.resourceManager->LoadShaderWithName("BaseShader","res/shaders/base_vector_shader.vs","res/shaders/base_fragment_shader.fs");
 
+	std::shared_ptr<Texture2D> texture = engine.resourceManager->LoadTextureWithName("BaseTexture","res/textures/test.png");
 
-	std::shared_ptr<Texture2D> texture = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		LoadTextureWithName("BaseTexture",
-			"res/textures/test.png");
-
-	std::shared_ptr<Sprite> sprite = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		GenerateSpriteFromTextureWithShader("Sprite",
-			"BaseTexture",
-			"BaseShader");
+	std::shared_ptr<Sprite> sprite = engine.resourceManager->GenerateSpriteFromTextureWithShader("Sprite", "BaseTexture", "BaseShader");
 
 	std::vector<std::shared_ptr<Block>> testBlocks;
 	for (unsigned int i = 0; i < 1; i++) {

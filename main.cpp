@@ -13,18 +13,15 @@
 
 #include "EngineSystems.h"
 
-
-#include "SandBox/Chunk.h"
-#include "SandBox/MapGenerator.h"
-#include "ChunkRenderer.h"
-
 #include "Logger.h"
 
 #include "mem/Allocator.h"
 
 #include <imgui/imgui.h>
-#include "gui/imgui_impl_glfw.h"
-#include "gui/imgui_impl_opengl3.h"
+#include "gui/imgui/imgui_impl_glfw.h"
+#include "gui/imgui/imgui_impl_opengl3.h"
+
+#include "TestField.h"
 
 #include "AsyncFileIO.h"
 
@@ -33,42 +30,11 @@ using namespace Erbium;
 
 
 int main() {
-
-	AsyncFileIO asyncFileIO;
-	asyncFileIO.WriteText("text.txt", "TEST STRING");
 	EngineSystems engine;
 	engine.InitSystems();
 
-	//b2World* world = new b2World(b2Vec2(0.0f, -10.0f));
-
-	srand(static_cast<unsigned>(time(0)));
-
-
-	ChunkRenderer* chunkRenderer = new ChunkRenderer(dynamic_cast<IRenderer*>(engine.GetSystem("renderer")));
-
-	std::shared_ptr<Shader> shader = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		LoadShaderWithName("BaseShader",
-			"res/shaders/base_vector_shader.vs",
-		"res/shaders/base_fragment_shader.fs");
-
-	std::shared_ptr<Texture2D> texture = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		LoadTextureWithName("BaseTexture",
-			"res/textures/test.png");
-
-	std::vector<Block*> testBlocks;
-	std::shared_ptr<Sprite> sprite = dynamic_cast<ResourceManager*>(engine.GetSystem("resourceManager"))->
-		GenerateSpriteFromTextureWithShader("Sprite",
-			"BaseTexture",
-			"BaseShader");
-	
-
-	for (unsigned int i = 0; i < 64; i++) {
-		Transform transform(nullptr);
-		transform.Translate(static_cast<GLfloat>(i), static_cast<GLfloat>(i));
-		testBlocks.push_back(new Block(B_DIRT, transform, sprite));
-	}
-
-	Chunk* testChunk = new Chunk(testBlocks);
+	TestField* testField = new TestField(&engine);
+	testField->Init();
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -77,16 +43,10 @@ int main() {
 	ImGui_ImplOpenGL3_Init("#version 330");
 	ImGui::StyleColorsDark();
 
-	//ChunkManager manager;
-	//_Chunk chunk = manager.GenerateChunk();
-
-#ifdef _DEBUG
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-#endif
-
 	double lastTime = glfwGetTime();
 	double currentTime = 0.0f;
 	double elapsedTime;
+
 	while (!dynamic_cast<Window*>(engine.GetSystem("window"))->windowShouldClose) {
 
 		currentTime = glfwGetTime();
@@ -99,7 +59,7 @@ int main() {
 		EventManager::ProcessEvents();
 		dynamic_cast<Window*>(engine.GetSystem("window"))->Update();
 
-		chunkRenderer->DrawChunk(testChunk);
+		testField->Run();
 
 		ImGui::Begin("Demo window");
 		ImGui::Button("Hello!");
@@ -112,12 +72,8 @@ int main() {
 
 		lastTime = currentTime;
 	}
-
-
-	delete chunkRenderer;
-	for (auto block : testBlocks) {
-		delete block;
-	}
+	
+	testField->Terminate();
 
 	engine.TerminateSystems();
 

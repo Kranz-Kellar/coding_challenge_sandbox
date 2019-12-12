@@ -25,8 +25,8 @@ void ChunkRenderer::DrawChunk(Chunk* chunk)
 
 	//TODO: Render bunch of object in one draw call
 	//Test bench
-	for (unsigned int i = 0; i < MAX_CHUNK_SIZE; i++) {
-		Block* block = chunk->blocks[i];
+	for (unsigned int i = 0; i < chunk->blocks.size(); i++) {
+		std::shared_ptr<Block> block = chunk->blocks[i];
 		if (block == nullptr) {
 			Logger::Log("Block was null", LOG_ERROR);
 			continue;

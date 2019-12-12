@@ -8,10 +8,10 @@
 class Chunk
 {
 public:
-	std::vector<Block*> blocks;
+	std::vector<std::shared_ptr<Block>> blocks;
 
 
-	Chunk(std::vector<Block*> blocks) {
+	Chunk(std::vector<std::shared_ptr<Block>> blocks) {
 		this->blocks = blocks;
 	};
 

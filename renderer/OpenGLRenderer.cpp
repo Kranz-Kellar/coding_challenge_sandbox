@@ -1,5 +1,8 @@
 #include "OpenGLRenderer.h"
 
+#pragma warning (disable: 4838)
+#pragma warning (disable: 4244)
+
 using namespace Erbium;
 
 OpenGLRenderer::OpenGLRenderer(Camera* camera) : viewCamera(camera)
@@ -144,7 +147,7 @@ void OpenGLRenderer::Draw2DObject(IDrawData* drawData)
 	SetBufferOfType(openGLDrawData->typeOfDraw);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+	//glBindVertexArray(0);
 }
 
 void OpenGLRenderer::SetBufferOfType(GLuint type) const
